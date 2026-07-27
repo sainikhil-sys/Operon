@@ -1,0 +1,457 @@
+{
+  "profiles": [
+    {
+      "id": "user_default_id",
+      "full_name": "Alex Rivera",
+      "email": "alex@orbitlabs.dev",
+      "business_name": "OrbitLabs Tech",
+      "industry": "Software & Technology",
+      "phone": "+1 (555) 234-5678",
+      "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&h=256&q=80",
+      "subscription_plan": "growth",
+      "created_at": "2026-05-19T09:07:56.729Z"
+    },
+    {
+      "id": "user-tm-2",
+      "full_name": "Sarah Jenkins",
+      "email": "sarah.j@orbitlabs.dev",
+      "business_name": "OrbitLabs Tech",
+      "industry": "Software & Technology",
+      "role": "admin",
+      "subscription_plan": "growth",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "user-tm-3",
+      "full_name": "Marcus Chen",
+      "email": "marcus@orbitlabs.dev",
+      "business_name": "OrbitLabs Tech",
+      "industry": "Software & Technology",
+      "role": "member",
+      "subscription_plan": "growth",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "user_knwqyf4og",
+      "full_name": "sai ",
+      "email": "sainikhil@gmail.com",
+      "business_name": "t2t",
+      "industry": "Software & Technology",
+      "subscription_plan": "starter",
+      "created_at": "2026-06-18T09:07:56.732Z"
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead-1",
+      "user_id": "user_default_id",
+      "name": "Sarah Connor",
+      "email": "sarah@cyberdyne.io",
+      "phone": "+1 (555) 901-2345",
+      "source": "Google Search",
+      "status": "interested",
+      "value": 12000,
+      "notes": "Interested in the enterprise subscription and integration options.",
+      "created_at": "2026-06-13T09:07:56.729Z"
+    },
+    {
+      "id": "lead-2",
+      "user_id": "user_default_id",
+      "name": "Bruce Wayne",
+      "email": "bruce@waynecorp.com",
+      "phone": "+1 (555) 777-8888",
+      "source": "LinkedIn",
+      "status": "proposal_sent",
+      "value": 45000,
+      "notes": "Proposal sent for customized AI workflows. Follow up on Tuesday.",
+      "created_at": "2026-06-10T09:07:56.729Z"
+    },
+    {
+      "id": "lead-3",
+      "user_id": "user_default_id",
+      "name": "Tony Stark",
+      "email": "tony@starkindustries.com",
+      "phone": "+1 (555) 300-3000",
+      "source": "Referral",
+      "status": "won",
+      "value": 85000,
+      "notes": "Deal closed! Moving to onboarding phase.",
+      "created_at": "2026-06-06T09:07:56.729Z"
+    },
+    {
+      "id": "lead-4",
+      "user_id": "user_default_id",
+      "name": "Peter Parker",
+      "email": "peter@dailybugle.com",
+      "phone": "+1 (555) 123-4567",
+      "source": "Instagram",
+      "status": "new",
+      "value": 1500,
+      "notes": "Requested info about basic plan. Small freelance business.",
+      "created_at": "2026-06-17T09:07:56.729Z"
+    },
+    {
+      "id": "lead-5",
+      "user_id": "user_default_id",
+      "name": "Clark Kent",
+      "email": "clark@dailyplanet.com",
+      "phone": "+1 (555) 987-6543",
+      "source": "LinkedIn",
+      "status": "contacted",
+      "value": 5000,
+      "notes": "Initial call completed. Setting up demo session next week.",
+      "created_at": "2026-06-15T09:07:56.729Z"
+    },
+    {
+      "id": "lead-6",
+      "user_id": "user_default_id",
+      "name": "Selina Kyle",
+      "email": "selina@gothamcats.org",
+      "phone": "+1 (555) 444-5555",
+      "source": "Instagram",
+      "status": "won",
+      "value": 8000,
+      "notes": "Closed via discount code promotion.",
+      "created_at": "2026-06-03T09:07:56.729Z"
+    },
+    {
+      "id": "lead-7",
+      "user_id": "user_default_id",
+      "name": "Arthur Dent",
+      "email": "arthur@guide.galaxy",
+      "phone": "+44 7700 900077",
+      "source": "Google Search",
+      "status": "lost",
+      "value": 3500,
+      "notes": "Looking for non-digital operational consulting. Not a software fit.",
+      "created_at": "2026-05-29T09:07:56.729Z"
+    },
+    {
+      "id": "lead-8",
+      "user_id": "user_default_id",
+      "name": "Barry Allen",
+      "email": "barry@star-labs.com",
+      "phone": "+1 (555) 222-3333",
+      "source": "Referral",
+      "status": "interested",
+      "value": 15000,
+      "notes": "Super fast decision maker, wants to launch immediately.",
+      "created_at": "2026-06-16T09:07:56.729Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": "cust-1",
+      "user_id": "user_default_id",
+      "name": "Tony Stark",
+      "email": "tony@starkindustries.com",
+      "phone": "+1 (555) 300-3000",
+      "company": "Stark Industries",
+      "lifetime_value": 85000,
+      "created_at": "2026-06-06T09:07:56.729Z"
+    },
+    {
+      "id": "cust-2",
+      "user_id": "user_default_id",
+      "name": "Selina Kyle",
+      "email": "selina@gothamcats.org",
+      "phone": "+1 (555) 444-5555",
+      "company": "Gotham Cats Ltd",
+      "lifetime_value": 8000,
+      "created_at": "2026-06-03T09:07:56.729Z"
+    },
+    {
+      "id": "cust-3",
+      "user_id": "user_default_id",
+      "name": "Diana Prince",
+      "email": "diana@themyscira.gov",
+      "company": "Themyscira Museum",
+      "lifetime_value": 32000,
+      "created_at": "2026-05-04T09:07:56.729Z"
+    },
+    {
+      "id": "cust-4",
+      "user_id": "user_default_id",
+      "name": "Steve Rogers",
+      "email": "steve@brooklynshields.org",
+      "company": "Brooklyn Security Services",
+      "lifetime_value": 18000,
+      "created_at": "2026-04-19T09:07:56.729Z"
+    },
+    {
+      "id": "cust-5",
+      "user_id": "user_default_id",
+      "name": "Hal Jordan",
+      "email": "hal@ferrisair.com",
+      "company": "Ferris Aircraft Corp",
+      "lifetime_value": 54000,
+      "created_at": "2026-03-20T09:07:56.729Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "user_id": "user_default_id",
+      "title": "Review Wayne Corp Proposal",
+      "description": "Go over the pricing details and customize the integration timeline.",
+      "priority": "high",
+      "status": "in_progress",
+      "due_date": "2026-06-19",
+      "created_at": "2026-06-16T09:07:56.729Z"
+    },
+    {
+      "id": "task-2",
+      "user_id": "user_default_id",
+      "title": "Prepare Monthly AI Insights",
+      "description": "Check lead pipeline analytics and generate actionable business feedback.",
+      "priority": "medium",
+      "status": "pending",
+      "due_date": "2026-06-21",
+      "created_at": "2026-06-17T09:07:56.729Z"
+    },
+    {
+      "id": "task-3",
+      "user_id": "user_default_id",
+      "title": "Onboard Tony Stark (Stark Industries)",
+      "description": "Coordinate with engineering team to set up SSO and database connections.",
+      "priority": "high",
+      "status": "completed",
+      "due_date": "2026-06-16",
+      "created_at": "2026-06-13T09:07:56.729Z"
+    },
+    {
+      "id": "task-4",
+      "user_id": "user_default_id",
+      "title": "Update Billing Integrations",
+      "description": "Connect Razorpay endpoints and test sandbox transactions.",
+      "priority": "medium",
+      "status": "pending",
+      "due_date": "2026-06-23",
+      "created_at": "2026-06-15T09:07:56.729Z"
+    },
+    {
+      "id": "task-5",
+      "user_id": "user_default_id",
+      "title": "Follow up with Bruce Wayne",
+      "description": "Ping Bruce regarding the custom workspace options proposed.",
+      "priority": "high",
+      "status": "pending",
+      "due_date": "2026-06-20",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "task-6",
+      "user_id": "user_default_id",
+      "title": "Audit marketing channels performance",
+      "description": "Analyze revenue from Instagram ads vs organic LinkedIn search.",
+      "priority": "low",
+      "status": "completed",
+      "due_date": "2026-06-14",
+      "created_at": "2026-06-12T09:07:56.729Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "t-1",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 18500,
+      "category": "SaaS Subscriptions",
+      "description": "Stark Industries Enterprise Plan",
+      "date": "2026-06-13",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-2",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 8000,
+      "category": "Consulting",
+      "description": "Gotham Cats custom onboarding setup",
+      "date": "2026-06-08",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-3",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 4500,
+      "category": "Hosting & Server",
+      "description": "AWS Production Cluster bills",
+      "date": "2026-06-10",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-4",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 1200,
+      "category": "Software Licenses",
+      "description": "Github Enterprise + Slack seats",
+      "date": "2026-06-04",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-5",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 4900,
+      "category": "SaaS Subscriptions",
+      "description": "Recurring Starter and Growth accounts",
+      "date": "2026-06-03",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-6",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 25000,
+      "category": "Consulting",
+      "description": "Themyscira Museum implementation Phase 1",
+      "date": "2026-05-14",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-7",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 6000,
+      "category": "Marketing",
+      "description": "Instagram & LinkedIn Ad Campaigns",
+      "date": "2026-05-09",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-8",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 7200,
+      "category": "SaaS Subscriptions",
+      "description": "Growth tier license renewals",
+      "date": "2026-05-07",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-9",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 4500,
+      "category": "Hosting & Server",
+      "description": "AWS Production Cluster bills",
+      "date": "2026-05-11",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-10",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 18000,
+      "category": "SaaS Subscriptions",
+      "description": "Brooklyn Security Services annual pre-pay",
+      "date": "2026-04-14",
+      "created_at": "2026-06-18T09:07:56.729Z"
+    },
+    {
+      "id": "t-11",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 6800,
+      "category": "SaaS Subscriptions",
+      "description": "Starter and Growth plans renew",
+      "date": "2026-04-07",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "t-12",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 4200,
+      "category": "Hosting & Server",
+      "description": "AWS Production Cluster bills",
+      "date": "2026-04-11",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "t-13",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 5000,
+      "category": "Marketing",
+      "description": "Google AdWords Campaign",
+      "date": "2026-04-04",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "t-14",
+      "user_id": "user_default_id",
+      "type": "revenue",
+      "amount": 35000,
+      "category": "SaaS Subscriptions",
+      "description": "Ferris Aircraft implementation pilot",
+      "date": "2026-03-15",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "t-15",
+      "user_id": "user_default_id",
+      "type": "expense",
+      "amount": 15000,
+      "category": "Office Rent & Equipment",
+      "description": "Coworking quarterly deposit and new hardware",
+      "date": "2026-03-10",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    }
+  ],
+  "reports": [
+    {
+      "id": "rep-1",
+      "user_id": "user_default_id",
+      "report": "### Executive COO Business Health Summary\n\n#### 📈 Key Findings\n- **High Customer Acquisition Costs (CAC):** Marketing spend has increased by 12% relative to conversion rates.\n- **Strong Retention Metrics:** Customer Lifetime Value (LTV) remains high ($12,000+ average) indicating excellent product-market fit.\n- **Instagram Funnel Quality:** Leads coming from Instagram have a conversion rate of 28%, which is 2x higher than LinkedIn.\n\n#### 💡 Actionable Insights & Bottlenecks\n1. **Reduce LinkedIn Ads Budget:** Reallocate 40% of the budget to Instagram campaigns.\n2. **Follow-Up Automation:** Average response time to new leads is 8.5 hours. Reducing this to <1 hour can yield up to a 15% increase in conversions.\n3. **Upsell Starter Tier:** Starter-tier accounts have reached 90% usage quotas. Deploy an automated upgrade email campaign.",
+      "generated_at": "2026-06-17T09:07:56.730Z"
+    }
+  ],
+  "teams": [
+    {
+      "id": "team-1",
+      "owner_id": "user_default_id",
+      "team_name": "OrbitLabs Primary",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "team_axosj9g3u",
+      "owner_id": "user_knwqyf4og",
+      "team_name": "t2t Team",
+      "created_at": "2026-06-18T09:07:56.732Z"
+    }
+  ],
+  "teamMembers": [
+    {
+      "id": "tm-1",
+      "team_id": "team-1",
+      "user_id": "user_default_id",
+      "role": "owner",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "tm-2",
+      "team_id": "team-1",
+      "user_id": "user-tm-2",
+      "role": "admin",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "tm-3",
+      "team_id": "team-1",
+      "user_id": "user-tm-3",
+      "role": "member",
+      "created_at": "2026-06-18T09:07:56.730Z"
+    },
+    {
+      "id": "tm_m7s0idt6c",
+      "team_id": "team_axosj9g3u",
+      "user_id": "user_knwqyf4og",
+      "role": "owner",
+      "created_at": "2026-06-18T09:07:56.732Z"
+    }
+  ]
+}
