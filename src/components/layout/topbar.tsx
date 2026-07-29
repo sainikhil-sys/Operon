@@ -19,6 +19,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
         size="icon"
         className="h-9 w-9 lg:hidden shrink-0"
         onClick={onMenuClick}
+        aria-label="Open mobile menu"
       >
         <Menu className="h-5 w-5" />
       </Button>

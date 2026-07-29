@@ -64,6 +64,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
               size="icon"
               className="h-7 w-7 text-muted-foreground hover:text-foreground hidden lg:flex"
               onClick={onToggleCollapse}
+              aria-label="Collapse sidebar"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -72,6 +73,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
               size="icon"
               className="h-7 w-7 text-muted-foreground hover:text-foreground lg:hidden"
               onClick={onClose}
+              aria-label="Close sidebar"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -83,6 +85,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
             size="icon"
             className="h-7 w-7 text-muted-foreground hover:text-foreground absolute -right-3 top-5 bg-sidebar border border-sidebar-border rounded-full shadow-sm hidden lg:flex"
             onClick={onToggleCollapse}
+            aria-label="Expand sidebar"
           >
             <ChevronLeft className="h-3.5 w-3.5 rotate-180" />
           </Button>

@@ -1,0 +1,3 @@
+## 2026-07-29 - Missing ARIA Labels on Icon-Only Buttons
+**Learning:** Widespread lack of `aria-label` attributes on icon-only buttons throughout the application's core layout components (sidebar, topbar, notification menu). This pattern makes the interface less accessible for screen reader users, who rely on text alternatives to understand the purpose of these interactive elements.
+**Action:** When adding new icon-only interactive elements or buttons, ensure they have descriptive `aria-label`s. Regularly audit existing components for missing text alternatives.
