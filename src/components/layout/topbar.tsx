@@ -17,6 +17,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Open menu"
         className="h-9 w-9 lg:hidden shrink-0"
         onClick={onMenuClick}
       >

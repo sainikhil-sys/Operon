@@ -62,6 +62,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
             <Button
               variant="ghost"
               size="icon"
+              aria-label="Collapse sidebar"
               className="h-7 w-7 text-muted-foreground hover:text-foreground hidden lg:flex"
               onClick={onToggleCollapse}
             >
@@ -70,6 +71,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
             <Button
               variant="ghost"
               size="icon"
+              aria-label="Close sidebar"
               className="h-7 w-7 text-muted-foreground hover:text-foreground lg:hidden"
               onClick={onClose}
             >
@@ -81,6 +83,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Expand sidebar"
             className="h-7 w-7 text-muted-foreground hover:text-foreground absolute -right-3 top-5 bg-sidebar border border-sidebar-border rounded-full shadow-sm hidden lg:flex"
             onClick={onToggleCollapse}
           >
