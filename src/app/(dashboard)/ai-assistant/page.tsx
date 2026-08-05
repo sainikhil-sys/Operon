@@ -184,6 +184,7 @@ export default function AIAssistantPage() {
             rows={1}
           />
           <Button
+            aria-label="Send message"
             onClick={handleSend}
             disabled={!input.trim() || isTyping}
             size="icon"

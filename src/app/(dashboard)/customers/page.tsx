@@ -207,6 +207,7 @@ export default function CustomersPage() {
                 <h3 className="font-semibold">Customer Profile</h3>
                 <div className="flex items-center gap-1">
                   <Button
+                    aria-label="Edit customer"
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-muted-foreground hover:text-foreground"
@@ -215,6 +216,7 @@ export default function CustomersPage() {
                     <Pencil className="h-3.5 w-3.5" />
                   </Button>
                   <Button
+                    aria-label="Delete customer"
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-destructive hover:text-destructive"
@@ -223,6 +225,7 @@ export default function CustomersPage() {
                     <Trash2 className="h-3.5 w-3.5" />
                   </Button>
                   <Button
+                    aria-label="Close customer details"
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-muted-foreground hover:text-foreground"
