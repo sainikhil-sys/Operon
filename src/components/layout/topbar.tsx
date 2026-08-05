@@ -15,6 +15,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border bg-background/80 backdrop-blur-md px-4 lg:px-6">
       {/* Mobile menu button */}
       <Button
+        aria-label="Toggle menu"
         variant="ghost"
         size="icon"
         className="h-9 w-9 lg:hidden shrink-0"
