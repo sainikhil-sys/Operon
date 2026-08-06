@@ -26,9 +26,9 @@ const footerLinks = {
 
 export function LandingFooter() {
   return (
-    <footer className="bg-[#000000] border-t border-[rgba(255,255,255,0.06)] py-16 text-[rgba(255,255,255,0.45)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 pb-12 border-b border-[rgba(255,255,255,0.06)]">
+    <footer className="bg-[#000000] border-t border-[rgba(255,255,255,0.04)] py-16 text-[rgba(255,255,255,0.45)]" aria-label="Footer navigation">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 pb-12 border-b border-[rgba(255,255,255,0.04)]">
 
           {/* Brand */}
           <div className="md:col-span-2 space-y-5">

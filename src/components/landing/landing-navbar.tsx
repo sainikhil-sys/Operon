@@ -55,7 +55,7 @@ export function LandingNavbar({ onOpenCommand }: { onOpenCommand?: () => void })
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium font-body text-[rgba(255,255,255,0.72)]">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium font-body text-[rgba(255,255,255,0.72)]">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="hover:text-[#46D296] transition-colors duration-200">
                 {l.label}
