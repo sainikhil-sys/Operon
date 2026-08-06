@@ -93,7 +93,7 @@ export default function LandingPage() {
             <Link href="/auth/signup">
               <Button size="sm">Get Started</Button>
             </Link>
-            <button className="md:hidden" onClick={() => setMobileNav(!mobileNav)}>
+            <button className="md:hidden" onClick={() => setMobileNav(!mobileNav)} aria-label={mobileNav ? "Close menu" : "Open menu"} aria-expanded={mobileNav}>
               {mobileNav ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
