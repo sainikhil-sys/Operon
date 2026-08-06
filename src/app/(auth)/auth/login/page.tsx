@@ -29,10 +29,11 @@ export default function LoginPage() {
     setOauthLoading(provider)
     try {
       const supabase = createClient()
+      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://operon.cogniqa.systems'
       const { error } = await supabase.auth.signInWithOAuth({
         provider: provider as any,
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${origin}/auth/callback?next=/inbox`,
         },
       })
 
@@ -78,7 +79,7 @@ export default function LoginPage() {
       }
 
       toast.success('Welcome back!')
-      router.push('/dashboard')
+      router.push('/inbox')
       router.refresh()
     } catch (err) {
       console.error('Login error:', err)

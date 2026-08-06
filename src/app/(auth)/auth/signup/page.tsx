@@ -48,10 +48,11 @@ export default function SignupPage() {
     setOauthLoading(provider)
     try {
       const supabase = createClient()
+      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://operon.cogniqa.systems'
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${origin}/auth/callback?next=/inbox`,
         },
       })
 
@@ -127,8 +128,8 @@ export default function SignupPage() {
           })
         } catch {}
 
-        toast.success('Account created successfully! Opening your dashboard...')
-        window.location.href = '/dashboard'
+        toast.success('Account created successfully! Opening your workspace...')
+        window.location.href = '/inbox'
       } else {
         toast.info('Account created! Please check your email to confirm before signing in.')
         router.push('/auth/login')

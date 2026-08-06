@@ -3,14 +3,20 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url)
-  const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/dashboard'
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get('code')
+  
+  // Default post-login route is /inbox on current origin per enterprise spec
+  const next = requestUrl.searchParams.get('next') ?? '/inbox'
+
+  // Determine origin safely — prefer process.env.NEXT_PUBLIC_APP_URL or current request origin
+  const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL || requestUrl.origin
 
   if (code) {
     const cookieStore = await cookies()
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
     const supabaseKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)!
+
     const supabase = createServerClient(
       supabaseUrl,
       supabaseKey,
@@ -30,21 +36,16 @@ export async function GET(request: Request) {
       }
     )
 
-
     const { error } = await supabase.auth.exchangeCodeForSession(code)
+
     if (!error) {
-      const forwardedHost = request.headers.get('x-forwarded-host')
-      const isLocalEnv = process.env.NODE_ENV === 'development'
-      if (isLocalEnv) {
-        return NextResponse.redirect(`${origin}${next}`)
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}${next}`)
-      } else {
-        return NextResponse.redirect(`${origin}${next}`)
-      }
+      // Always redirect to the Operon app URL on current domain (/inbox)
+      // Never allow forwardedHost to rewrite to the parent cogniqa.systems domain
+      const redirectTarget = `${appBaseUrl}${next.startsWith('/') ? next : '/' + next}`
+      return NextResponse.redirect(redirectTarget)
     }
   }
 
-  // Return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/login?error=auth_callback_error`)
+  // Return the user to an error page on the current origin if authentication failed
+  return NextResponse.redirect(`${appBaseUrl}/auth/login?error=auth_callback_error`)
 }
