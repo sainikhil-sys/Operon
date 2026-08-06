@@ -72,10 +72,10 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // If authenticated and trying to access auth pages, redirect to dashboard
+  // If authenticated and trying to access auth pages, redirect to /inbox on current origin
   if (user && path.startsWith('/auth') && !path.startsWith('/auth/callback')) {
     const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
+    url.pathname = '/inbox'
     return NextResponse.redirect(url)
   }
 
