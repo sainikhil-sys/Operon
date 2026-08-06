@@ -33,28 +33,12 @@ export function HeroSection() {
       {/* ── Outer container: max-w-[1440px], fluid padding ── */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
 
-        <div className="
-          flex flex-col
-          lg:grid lg:grid-cols-12
-          gap-12 md:gap-14 lg:gap-16 xl:gap-20
-          items-center
-          pt-24 pb-20
-          sm:pt-28 sm:pb-24
-          md:pt-32 md:pb-28
-          lg:pt-36 lg:pb-32
-        ">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-12 md:gap-14 lg:gap-16 xl:gap-20 items-center pt-24 pb-20 sm:pt-28 sm:pb-24 md:pt-32 md:pb-28 lg:pt-36 lg:pb-32">
 
           {/* ── LEFT COL: Hero copy ── */}
           <div
             ref={leftRef}
-            className="
-              opacity-0
-              lg:col-span-5
-              w-full
-              flex flex-col gap-8 sm:gap-10 lg:gap-12
-              text-center sm:text-left
-              items-center sm:items-start
-            "
+            className="opacity-0 lg:col-span-5 w-full flex flex-col gap-8 sm:gap-10 lg:gap-12 text-center sm:text-left items-center sm:items-start"
           >
             {/* Eyebrow pill */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(255,255,255,0.04)] bg-[#090909]">
@@ -88,14 +72,7 @@ export function HeroSection() {
               <Link href="/auth/signup" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="
-                    w-full sm:w-auto
-                    h-11 px-6 rounded-xl
-                    text-sm font-semibold
-                    bg-[#46D296] hover:bg-[#5BE3A8] text-[#FFFFFF]
-                    gap-2 transition-all duration-200
-                    hover:shadow-[0_0_20px_rgba(63,163,124,0.25)]
-                  "
+                  className="w-full sm:w-auto h-11 px-6 rounded-xl text-sm font-semibold bg-[#46D296] hover:bg-[#5BE3A8] text-[#FFFFFF] gap-2 transition-all duration-200 hover:shadow-[0_0_20px_rgba(63,163,124,0.25)]"
                 >
                   Launch Workspace <ArrowRight size={16} />
                 </Button>
@@ -104,13 +81,7 @@ export function HeroSection() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="
-                    w-full sm:w-auto
-                    h-11 px-6 rounded-xl
-                    text-sm font-semibold
-                    border-[rgba(255,255,255,0.06)] bg-[#090909] hover:bg-[#111111] text-[#FFFFFF]
-                    gap-2
-                  "
+                  className="w-full sm:w-auto h-11 px-6 rounded-xl text-sm font-semibold border-[rgba(255,255,255,0.06)] bg-[#090909] hover:bg-[#111111] text-[#FFFFFF] gap-2"
                 >
                   <Play size={14} weight="fill" className="text-[#46D296]" />
                   Watch Demo
