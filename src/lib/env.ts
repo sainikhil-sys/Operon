@@ -2,7 +2,8 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   // Core Application
-  NEXT_PUBLIC_SITE_URL: z.string().url('NEXT_PUBLIC_SITE_URL must be a valid URL').optional().default('http://localhost:3000'),
+  NEXT_PUBLIC_SITE_URL: z.string().url('NEXT_PUBLIC_SITE_URL must be a valid URL').optional().default('https://operon.cogniqa.systems'),
+  NEXT_PUBLIC_APP_URL: z.string().url('NEXT_PUBLIC_APP_URL must be a valid URL').optional().default('https://operon.cogniqa.systems'),
 
   // Supabase (Database & Authentication)
   NEXT_PUBLIC_SUPABASE_URL: z.string().url('NEXT_PUBLIC_SUPABASE_URL must be a valid URL').optional(),
