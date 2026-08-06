@@ -41,9 +41,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Operon | AI Business Operating System",
+  title: "Operon — Powered by CogniQA Systems",
   description:
-    "Unify Sales, Finance, Engineering, Operations, and Knowledge into a single neural intelligence graph with Operon by CogniQA Systems.",
+    "Operon is an enterprise AI operating system developed by CogniQA Systems.",
   keywords: [
     "AI OS",
     "Business Operating System",

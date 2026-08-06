@@ -144,9 +144,9 @@ export default function SignupPage() {
   return (
     <Card className="border-border/50 shadow-2xl shadow-black/10">
       <CardHeader className="text-center pb-2">
-        <CardTitle className="text-2xl font-bold font-heading">Create your account</CardTitle>
-        <CardDescription className="font-body">
-          Start growing your business with Operon
+        <CardTitle className="text-2xl font-bold font-heading">Welcome to Operon</CardTitle>
+        <CardDescription className="font-mono text-xs text-[rgba(255,255,255,0.65)] mt-1">
+          Powered by CogniQA Systems
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

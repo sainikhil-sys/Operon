@@ -1,4 +1,4 @@
-import { Brain } from 'lucide-react'
+import { OperonLogo } from '@/components/brand/operon-logo'
 import Link from 'next/link'
 
 export default function AuthLayout({
@@ -18,12 +18,12 @@ export default function AuthLayout({
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center justify-center gap-2.5 mb-8"
+          className="flex flex-col items-center justify-center gap-1 mb-8 group"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg">
-            <Brain className="h-5 w-5" />
-          </div>
-          <span className="text-xl font-bold tracking-tight">Operon</span>
+          <OperonLogo className="h-9 w-auto" />
+          <span className="text-xs font-mono text-[rgba(255,255,255,0.65)] tracking-wider">
+            Powered by CogniQA Systems
+          </span>
         </Link>
 
         {children}

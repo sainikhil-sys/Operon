@@ -31,8 +31,8 @@ const partners: Partner[] = [
 
 export function TrustedBy() {
   return (
-    <section className="py-10 bg-[#000000] overflow-hidden border-y border-[rgba(255,255,255,0.06)]">
-      <div className="max-w-7xl mx-auto px-4 text-center mb-6">
+    <section className="py-10 bg-[#000000] overflow-hidden border-y border-[rgba(255,255,255,0.04)]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center mb-6">
         <p className="text-caption font-mono text-[rgba(255,255,255,0.45)] uppercase tracking-widest">
           Integrated with modern infrastructure
         </p>

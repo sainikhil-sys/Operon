@@ -20,35 +20,28 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative overflow-hidden bg-[#000000] border-b border-[rgba(255,255,255,0.06)]">
+    <section className="relative overflow-hidden bg-[#000000] border-b border-[rgba(255,255,255,0.04)]">
 
       {/* Backdrop glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% -5%, rgba(63,163,124,0.08) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse 80% 50% at 50% -5%, rgba(63,163,124,0.06) 0%, transparent 65%)',
         }}
       />
 
-      {/* ── Outer container: max-w-[1600px], fluid padding ── */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-16 relative z-10">
+      {/* ── Outer container: max-w-[1440px], fluid padding ── */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
 
-        {/*
-          Layout strategy:
-            Mobile (<768px):       single col, centered, dashboard below
-            Tablet (768–1024px):   single col, left-aligned, dashboard below
-            Laptop (1024–1440px):  two cols 5/7
-            Desktop (1440px+):     two cols 5/7, more generous gap
-        */}
         <div className="
           flex flex-col
           lg:grid lg:grid-cols-12
-          gap-10 md:gap-12 lg:gap-12 xl:gap-16 2xl:gap-20
+          gap-12 md:gap-14 lg:gap-16 xl:gap-20
           items-center
-          pt-20 pb-16
-          sm:pt-24 sm:pb-20
-          md:pt-28 md:pb-24
-          lg:pt-32 lg:pb-28
+          pt-24 pb-20
+          sm:pt-28 sm:pb-24
+          md:pt-32 md:pb-28
+          lg:pt-36 lg:pb-32
         ">
 
           {/* ── LEFT COL: Hero copy ── */}
@@ -58,35 +51,34 @@ export function HeroSection() {
               opacity-0
               lg:col-span-5
               w-full
-              flex flex-col gap-6 sm:gap-7 lg:gap-8
+              flex flex-col gap-8 sm:gap-10 lg:gap-12
               text-center sm:text-left
               items-center sm:items-start
             "
           >
             {/* Eyebrow pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(255,255,255,0.06)] bg-[#090909]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(255,255,255,0.04)] bg-[#090909]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#46D296] animate-pulse" />
               <span className="text-xs font-mono text-[rgba(255,255,255,0.45)] tracking-wider">v6.0 — Now Live</span>
             </div>
 
-            {/* Instrument Serif headline — clamp() responsive sizing */}
+            {/* Instrument Serif headline — 20% height reduction & 2-3 lines max */}
             <h1
-              className="heading-hero text-[#FFFFFF] text-center sm:text-left"
+              className="heading-hero text-[#FFFFFF] text-center sm:text-left leading-tight"
               style={{
-                fontSize: 'clamp(2rem, 5.5vw, 4rem)',
-                maxWidth: '600px',
+                fontSize: 'clamp(1.75rem, 4.2vw, 3.25rem)',
+                lineHeight: 1.08,
+                maxWidth: '560px',
               }}
             >
-              The Enterprise AI{' '}
-              <br className="hidden sm:block" />
-              Operating Layer{' '}
+              The Enterprise AI Operating Layer{' '}
               <span className="text-[#46D296]">For Modern Organizations.</span>
             </h1>
 
             {/* Supporting paragraph */}
             <p
-              className="text-[rgba(255,255,255,0.45)] leading-relaxed max-w-[480px] text-center sm:text-left"
-              style={{ fontSize: 'clamp(0.9375rem, 1.5vw, 1.125rem)' }}
+              className="text-[rgba(255,255,255,0.45)] leading-relaxed max-w-[480px] text-center sm:text-left font-body"
+              style={{ fontSize: 'clamp(0.9375rem, 1.35vw, 1.125rem)' }}
             >
               Operon unifies Sales, Finance, Engineering, Operations, and Knowledge into a single real-time neural core powered by autonomous AI agents.
             </p>

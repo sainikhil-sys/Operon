@@ -44,13 +44,13 @@ export function LandingNavbar({ onOpenCommand }: { onOpenCommand?: () => void })
         }`}
       >
         {/* ── Navbar Row ── */}
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 sm:h-16">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between h-14 sm:h-16">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex flex-col justify-center shrink-0 group">
             <OperonLogo className="h-7 sm:h-8 w-auto" />
-            <span className="hidden lg:inline-block text-[10px] text-[rgba(255,255,255,0.45)] font-mono tracking-widest uppercase border-l border-[rgba(255,255,255,0.06)] pl-3">
-              CogniQA Systems
+            <span className="text-[8px] sm:text-[9px] text-[rgba(255,255,255,0.4)] font-mono tracking-wider pl-0.5 -mt-0.5">
+              Powered by CogniQA Systems
             </span>
           </Link>
 

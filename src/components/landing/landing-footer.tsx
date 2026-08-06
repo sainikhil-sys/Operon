@@ -59,8 +59,8 @@ export function LandingFooter() {
 
         {/* Footer Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm font-body text-[rgba(255,255,255,0.45)]">
-          <p>© 2026 CogniQA Systems Inc.</p>
-          <p className="mt-2 sm:mt-0">Operon™ is a trademark of CogniQA Systems.</p>
+          <p>© 2026 CogniQA Systems</p>
+          <p className="mt-2 sm:mt-0">Operon is developed and maintained by CogniQA Systems.</p>
         </div>
       </div>
     </footer>

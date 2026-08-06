@@ -801,24 +801,24 @@ export function HeroDashboard() {
       initial={{ opacity: 0, scale: 0.97, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#090909] overflow-hidden shadow-2xl"
-      style={{ boxShadow: '0 0 0 1px rgba(255,255,255,0.05), 0 24px 64px rgba(0,0,0,0.5)' }}
+      className="relative rounded-3xl border border-[rgba(255,255,255,0.04)] bg-[#090909] overflow-hidden shadow-2xl"
+      style={{ boxShadow: '0 0 0 1px rgba(255,255,255,0.03), 0 24px 64px rgba(0,0,0,0.6)' }}
     >
       {/* Subtle animated gradient overlay */}
       <motion.div
         className="absolute inset-0 pointer-events-none z-0"
         animate={{
           background: [
-            'radial-gradient(ellipse at 20% 0%, rgba(63,163,124,0.06) 0%, transparent 60%)',
-            'radial-gradient(ellipse at 80% 0%, rgba(63,163,124,0.06) 0%, transparent 60%)',
-            'radial-gradient(ellipse at 20% 0%, rgba(63,163,124,0.06) 0%, transparent 60%)',
+            'radial-gradient(ellipse at 20% 0%, rgba(63,163,124,0.04) 0%, transparent 60%)',
+            'radial-gradient(ellipse at 80% 0%, rgba(63,163,124,0.04) 0%, transparent 60%)',
+            'radial-gradient(ellipse at 20% 0%, rgba(63,163,124,0.04) 0%, transparent 60%)',
           ],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
       />
 
       {/* ── Window Chrome ── */}
-      <div className="relative z-10 flex items-center justify-between px-4 py-2.5 bg-[#000000] border-b border-[rgba(255,255,255,0.06)]">
+      <div className="relative z-10 flex items-center justify-between px-4 py-2.5 bg-[#000000] border-b border-[rgba(255,255,255,0.04)]">
         {/* Traffic lights */}
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />

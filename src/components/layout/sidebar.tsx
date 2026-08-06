@@ -109,13 +109,18 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
         "flex items-center h-16 px-4 border-b border-[rgba(255,255,255,0.06)] shrink-0",
         collapsed ? "justify-center" : "justify-between"
       )}>
-        <Link href="/dashboard" className="flex items-center">
+        <Link href="/dashboard" className="flex flex-col justify-center">
           {collapsed ? (
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#46D296] text-[#FFFFFF] shrink-0">
               <Brain size={20} />
             </div>
           ) : (
-            <OperonLogo className="h-7 w-auto" />
+            <>
+              <OperonLogo className="h-7 w-auto" />
+              <span className="text-[9px] font-mono text-[rgba(255,255,255,0.65)] tracking-wider pl-0.5 -mt-0.5 block">
+                Powered by CogniQA Systems
+              </span>
+            </>
           )}
         </Link>
         {!collapsed && (
