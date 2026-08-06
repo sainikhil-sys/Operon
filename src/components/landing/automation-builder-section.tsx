@@ -17,14 +17,14 @@ export function AutomationBuilderSection() {
 
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-caption font-mono text-[#3FA37C] uppercase tracking-widest block mb-3">
+          <span className="text-caption font-mono text-[#46D296] uppercase tracking-widest block mb-3">
             Automation
           </span>
-          <h2 className="text-h2 text-[#F8FAFC] font-heading leading-tight">
+          <h2 className="heading-section text-[#FFFFFF]">
             Automate Complex Workflows.{' '}
-            <span className="text-[#94A3B8]">Event-Driven Execution.</span>
+            <span className="text-[rgba(255,255,255,0.45)]">Event-Driven Execution.</span>
           </h2>
-          <p className="mt-5 text-body text-[#94A3B8] font-body leading-relaxed">
+          <p className="mt-5 text-body text-[rgba(255,255,255,0.45)] font-body leading-relaxed">
             Construct reliable, event-driven business workflows with step-level retries, exponential backoff, and full execution tracing.
           </p>
         </div>
@@ -38,21 +38,21 @@ export function AutomationBuilderSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="p-6 rounded-2xl bg-[#090A0C] border border-[rgba(255,255,255,0.08)] hover:border-[#3FA37C]/30 transition-colors duration-200 flex flex-col justify-between group"
+              className="p-6 rounded-2xl bg-[#000000] border border-[rgba(255,255,255,0.06)] hover:border-[#46D296]/30 transition-colors duration-200 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
-                  <span className="text-2xl font-bold text-[#3FA37C] font-mono">{item.step}</span>
-                  <Badge variant="outline" className="border-[#3FA37C]/30 bg-[#3FA37C]/10 text-[#3FA37C] text-caption font-mono">
+                  <span className="text-2xl font-bold text-[#46D296] font-mono">{item.step}</span>
+                  <Badge variant="outline" className="border-[#46D296]/30 bg-[#46D296]/10 text-[#46D296] text-caption font-mono">
                     {item.status}
                   </Badge>
                 </div>
 
-                <h4 className="text-lg font-semibold text-[#F8FAFC] font-body mb-2">{item.title}</h4>
-                <p className="text-sm text-[#94A3B8] leading-relaxed font-body">{item.desc}</p>
+                <h4 className="text-lg font-semibold text-[#FFFFFF] font-body mb-2">{item.title}</h4>
+                <p className="text-sm text-[rgba(255,255,255,0.45)] leading-relaxed font-body">{item.desc}</p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-between text-sm text-[#3FA37C] font-mono">
+              <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between text-sm text-[#46D296] font-mono">
                 <span>Queue Worker</span>
                 <CheckCircle size={16} weight="fill" />
               </div>

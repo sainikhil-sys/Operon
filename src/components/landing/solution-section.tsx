@@ -27,12 +27,12 @@ export function SolutionSection() {
 
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-caption font-mono text-[#3FA37C] uppercase tracking-widest block mb-3">
+          <span className="text-caption font-mono text-[#46D296] uppercase tracking-widest block mb-3">
             Platform
           </span>
-          <h2 className="text-h2 text-[#F8FAFC] font-heading leading-tight">
+          <h2 className="heading-section text-[#FFFFFF]">
             Six Core Pillars.{' '}
-            <span className="text-[#94A3B8]">One Business Neural Core.</span>
+            <span className="text-[rgba(255,255,255,0.45)]">One Business Neural Core.</span>
           </h2>
         </div>
 
@@ -47,28 +47,28 @@ export function SolutionSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="p-6 rounded-2xl bg-[#090A0C] border border-[rgba(255,255,255,0.08)] hover:border-[#3FA37C]/30 transition-colors duration-200 group flex flex-col justify-between"
+                className="p-6 rounded-2xl bg-[#000000] border border-[rgba(255,255,255,0.06)] hover:border-[#46D296]/30 transition-colors duration-200 group flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="p-2.5 rounded-xl bg-[#121519] text-[#3FA37C] group-hover:bg-[#3FA37C]/10 transition-colors">
+                    <div className="p-2.5 rounded-xl bg-[#090909] text-[#46D296] group-hover:bg-[#46D296]/10 transition-colors">
                       <Icon size={22} />
                     </div>
-                    <span className="text-caption font-mono text-[#3FA37C] bg-[#3FA37C]/10 px-2 py-0.5 rounded-md">
+                    <span className="text-caption font-mono text-[#46D296] bg-[#46D296]/10 px-2 py-0.5 rounded-md">
                       {pillar.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-semibold text-[#F8FAFC] font-body mb-2 group-hover:text-[#3FA37C] transition-colors">
+                  <h3 className="text-lg font-semibold text-[#FFFFFF] font-body mb-2 group-hover:text-[#46D296] transition-colors">
                     {pillar.title}
                   </h3>
 
-                  <p className="text-sm text-[#94A3B8] leading-relaxed font-body">
+                  <p className="text-sm text-[rgba(255,255,255,0.45)] leading-relaxed font-body">
                     {pillar.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-between text-sm text-[#94A3B8] group-hover:text-[#3FA37C] transition-colors font-body">
+                <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between text-sm text-[rgba(255,255,255,0.45)] group-hover:text-[#46D296] transition-colors font-body">
                   <span>Learn more</span>
                   <ArrowUpRight size={16} />
                 </div>

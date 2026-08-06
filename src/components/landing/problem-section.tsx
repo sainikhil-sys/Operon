@@ -32,14 +32,14 @@ export function ProblemSection() {
 
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-caption font-mono text-[#3FA37C] uppercase tracking-widest block mb-3">
+          <span className="text-caption font-mono text-[#46D296] uppercase tracking-widest block mb-3">
             The Problem
           </span>
-          <h2 className="text-h2 text-[#F8FAFC] font-heading leading-tight">
+          <h2 className="heading-section text-[#FFFFFF]">
             Software is Disconnected.{' '}
-            <span className="text-[#94A3B8]">Operon Unifies Everything.</span>
+            <span className="text-[rgba(255,255,255,0.45)]">Operon Unifies Everything.</span>
           </h2>
-          <p className="mt-5 text-body text-[#94A3B8] font-body leading-relaxed">
+          <p className="mt-5 text-body text-[rgba(255,255,255,0.45)] font-body leading-relaxed">
             Legacy SaaS stacks isolate CRMs, task boards, ledgers, and communication tools.
             Operon links every operational pulse into a single neural operating graph.
           </p>
@@ -54,15 +54,15 @@ export function ProblemSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="p-8 rounded-2xl bg-[#090A0C] border border-[rgba(255,255,255,0.08)]"
+            className="p-8 rounded-2xl bg-[#000000] border border-[rgba(255,255,255,0.06)]"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 rounded-xl bg-[#121519] text-[#94A3B8]">
+              <div className="p-2.5 rounded-xl bg-[#090909] text-[rgba(255,255,255,0.45)]">
                 <XCircle size={22} />
               </div>
               <div>
-                <h3 className="text-title text-[#F8FAFC] font-body font-semibold">Legacy SaaS Stack</h3>
-                <p className="text-caption text-[#94A3B8] font-mono">Fragmented &amp; Disconnected</p>
+                <h3 className="text-title text-[#FFFFFF] font-body font-semibold">Legacy SaaS Stack</h3>
+                <p className="text-caption text-[rgba(255,255,255,0.45)] font-mono">Fragmented &amp; Disconnected</p>
               </div>
             </div>
 
@@ -70,12 +70,12 @@ export function ProblemSection() {
               {legacyPains.map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-[#121519] border border-[rgba(255,255,255,0.08)]"
+                  className="flex items-start gap-3 p-4 rounded-xl bg-[#090909] border border-[rgba(255,255,255,0.06)]"
                 >
-                  <WarningCircle size={18} className="text-[#94A3B8] shrink-0 mt-0.5" />
+                  <WarningCircle size={18} className="text-[rgba(255,255,255,0.45)] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-sm text-[#F8FAFC] block font-body">{item.title}</strong>
-                    <p className="text-sm text-[#94A3B8] font-body mt-1">{item.desc}</p>
+                    <strong className="text-sm text-[#FFFFFF] block font-body">{item.title}</strong>
+                    <p className="text-sm text-[rgba(255,255,255,0.45)] font-body mt-1">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -88,15 +88,15 @@ export function ProblemSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="p-8 rounded-2xl bg-[#121519] border border-[#3FA37C]/30"
+            className="p-8 rounded-2xl bg-[#090909] border border-[#46D296]/30"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 rounded-xl bg-[#3FA37C]/10 text-[#3FA37C]">
+              <div className="p-2.5 rounded-xl bg-[#46D296]/10 text-[#46D296]">
                 <CheckCircle size={22} />
               </div>
               <div>
-                <h3 className="text-title text-[#F8FAFC] font-body font-semibold">Operon AI Operating System</h3>
-                <p className="text-caption text-[#3FA37C] font-mono">Neural Business Core</p>
+                <h3 className="text-title text-[#FFFFFF] font-body font-semibold">Operon AI Operating System</h3>
+                <p className="text-caption text-[#46D296] font-mono">Neural Business Core</p>
               </div>
             </div>
 
@@ -104,12 +104,12 @@ export function ProblemSection() {
               {operonAdvantages.map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-[#090A0C] border border-[rgba(255,255,255,0.08)]"
+                  className="flex items-start gap-3 p-4 rounded-xl bg-[#000000] border border-[rgba(255,255,255,0.06)]"
                 >
-                  <Lightning size={18} className="text-[#3FA37C] shrink-0 mt-0.5" />
+                  <Lightning size={18} className="text-[#46D296] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-sm text-[#F8FAFC] block font-body">{item.title}</strong>
-                    <p className="text-sm text-[#94A3B8] font-body mt-1">{item.desc}</p>
+                    <strong className="text-sm text-[#FFFFFF] block font-body">{item.title}</strong>
+                    <p className="text-sm text-[rgba(255,255,255,0.45)] font-body mt-1">{item.desc}</p>
                   </div>
                 </div>
               ))}

@@ -31,24 +31,24 @@ export function StatCard({ title, value, change, changeType = 'positive', icon, 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#131922] p-5 hover:border-[rgba(255,255,255,0.15)] transition-all duration-300 relative overflow-hidden group shadow-sm"
+      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#090909] p-5 hover:border-[rgba(255,255,255,0.15)] transition-all duration-300 relative overflow-hidden group shadow-sm"
     >
       <div className="flex items-start justify-between">
         <div className="space-y-3">
-          <p className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider font-mono">{title}</p>
-          <p className="text-2xl font-bold tracking-tight text-[#F8FAFC] font-mono">{value}</p>
+          <p className="text-xs text-[rgba(255,255,255,0.45)] font-semibold uppercase tracking-wider font-mono">{title}</p>
+          <p className="text-2xl font-bold tracking-tight text-[#FFFFFF] font-mono">{value}</p>
           {change && (
             <p className={cn(
               "text-xs font-semibold font-body",
               changeType === 'positive' && 'text-[#3FB950]',
               changeType === 'negative' && 'text-[#D65D5D]',
-              changeType === 'neutral' && 'text-[#94A3B8]',
+              changeType === 'neutral' && 'text-[rgba(255,255,255,0.45)]',
             )}>
               {change}
             </p>
           )}
         </div>
-        <div className="rounded-xl bg-[#1A222D] border border-[rgba(255,255,255,0.06)] p-2.5 text-[#F8FAFC] group-hover:bg-[#4A7C72]/20 group-hover:text-[#4A7C72] transition-colors">
+        <div className="rounded-xl bg-[#111111] border border-[rgba(255,255,255,0.06)] p-2.5 text-[#FFFFFF] group-hover:bg-[#46D296]/20 group-hover:text-[#46D296] transition-colors">
           <IconComponent size={20} weight="regular" />
         </div>
       </div>

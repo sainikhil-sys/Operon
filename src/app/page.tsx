@@ -22,7 +22,7 @@ export default function LandingPage() {
   const [commandOpen, setCommandOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[#050608] text-[#F8FAFC] antialiased font-body selection:bg-[#3FA37C]/25 selection:text-[#F8FAFC]">
+    <div className="min-h-screen bg-[#050608] text-[#FFFFFF] antialiased font-body selection:bg-[#46D296]/25 selection:text-[#FFFFFF]">
       {/* Raycast Command Palette Modal */}
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 

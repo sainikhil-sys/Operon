@@ -3,56 +3,71 @@
 import React from 'react'
 
 interface OperonLogoProps {
+  /** Tailwind height class applied to the wrapper, e.g. "h-7" or "h-9" */
   className?: string
-  width?: number
-  height?: number
+  /** Show/hide the icon mark to the left of the wordmark */
+  showMark?: boolean
+  /** Colour of the wordmark text. Defaults to #FFFFFF (near-white) */
+  color?: string
 }
 
 /**
- * Operon Brand Logo Vector Asset (Adlery Pro Calligraphic Identity)
- * Exclusively used for the Operon Brand Wordmark Logo.
+ * Operon Brand Wordmark
+ *
+ * Renders "Operon" in Adlery Pro — the exclusive calligraphic identity
+ * for this brand. Adlery Pro is self-hosted; drop  adlery-pro.woff2
+ * into /public/fonts/ to activate it. Until then the text falls back
+ * to Georgia so the layout never breaks.
+ *
+ * Font rules:
+ *   • "Adlery Pro" is used ONLY in this component.
+ *   • Never apply it anywhere else in the application.
  */
-export function OperonLogo({ className = "h-7 w-auto", width = 140, height = 36 }: OperonLogoProps) {
+export function OperonLogo({
+  className = 'h-8',
+  showMark = true,
+  color = '#FFFFFF',
+}: OperonLogoProps) {
   return (
-    <div className={`inline-flex items-center gap-2.5 ${className}`}>
-      {/* Operon Vector Brand Mark Icon */}
-      <svg
-        width={height}
-        height={height}
-        viewBox="0 0 36 36"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0 text-[#3FA37C]"
-      >
-        <rect width="36" height="36" rx="10" fill="#121519" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-        <path
-          d="M18 8C12.4772 8 8 12.4772 8 18C8 23.5228 12.4772 28 18 28C23.5228 28 28 23.5228 28 18C28 12.4772 23.5228 8 18 8ZM18 24C14.6863 24 12 21.3137 12 18C12 14.6863 14.6863 12 18 12C21.3137 12 24 14.6863 24 18C24 21.3137 21.3137 24 18 24Z"
-          fill="currentColor"
-        />
-        <circle cx="18" cy="18" r="3" fill="#F8FAFC" />
-      </svg>
-
-      {/* Adlery Pro Vector Wordmark SVG */}
-      <svg
-        width={width}
-        height={height}
-        viewBox="0 0 140 36"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="text-[#F8FAFC]"
-      >
-        <text
-          x="0"
-          y="26"
-          fill="#F8FAFC"
-          fontFamily="'Adlery Pro', 'Outfit', sans-serif"
-          fontSize="24"
-          fontWeight="700"
-          letterSpacing="0.04em"
+    <span
+      className={`inline-flex items-center gap-2 shrink-0 ${className}`}
+      style={{ lineHeight: 1 }}
+    >
+      {/* ── Icon mark ── */}
+      {showMark && (
+        <svg
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-full w-auto shrink-0"
+          aria-hidden="true"
         >
-          OPERON
-        </text>
-      </svg>
-    </div>
+          <rect width="32" height="32" rx="9" fill="#090909" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          {/* Stylised 'O' ring — matches the logo concept */}
+          <path
+            d="M16 7C10.925 7 6.875 11.05 6.875 16.125C6.875 21.2 10.925 25.25 16 25.25C21.075 25.25 25.125 21.2 25.125 16.125C25.125 11.05 21.075 7 16 7ZM16 21.75C12.862 21.75 10.375 19.263 10.375 16.125C10.375 12.987 12.862 10.5 16 10.5C19.138 10.5 21.625 12.987 21.625 16.125C21.625 19.263 19.138 21.75 16 21.75Z"
+            fill="#46D296"
+          />
+          <circle cx="16" cy="16.125" r="2.5" fill="#FFFFFF" />
+        </svg>
+      )}
+
+      {/* ── Adlery Pro wordmark ── */}
+      <span
+        style={{
+          fontFamily: "'Adlery Pro', Georgia, serif",
+          fontWeight: 400,
+          fontSize: '1.5em',      /* scales with the wrapper height via em */
+          lineHeight: 1,
+          color,
+          letterSpacing: '-0.01em',
+          /* Improve calligraphic rendering */
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+        }}
+      >
+        Operon
+      </span>
+    </span>
   )
 }

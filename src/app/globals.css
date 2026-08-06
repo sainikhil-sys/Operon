@@ -1,166 +1,333 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/*
+ * ============================================================
+ * OPERON — ENTERPRISE TYPOGRAPHY SYSTEM
+ * CogniQA Systems, 2026
+ *
+ * Font Hierarchy:
+ *   Logo            → Adlery Pro (SVG vector only, never live text)
+ *   Marketing h1/h2 → Instrument Serif (Google Font, via next/font)
+ *   UI / App        → Geist     (next/font, variable: --font-sans)
+ *   Code / Data     → JetBrains Mono (next/font, variable: --font-mono)
+ * ============================================================
+ */
+
+/* ── 1. TAILWIND ─────────────────────────────────────────── */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
-/* ============================================
-   OPERON V6 — PREMIUM ENTERPRISE TYPOGRAPHY SYSTEM
-   Built by CogniQA Systems
-   
-   Brand Logo: Adlery Pro (Vector SVG)
-   Hero/Marketing: HORIZONS
-   Application Core: Geist (400, 500, 600, 700)
-   Data & Telemetry: JetBrains Mono
-   ============================================ */
+/* ── 2. ADLERY PRO — self-hosted @font-face ──────────────── */
+/*
+  Exclusive calligraphic identity for the Operon wordmark logo.
+  Used NOWHERE else in the application.
 
+  To activate: drop  adlery-pro.woff2  into  /public/fonts/
+  The logo instantly renders in Adlery Pro — no restart needed.
+  Without the file it falls back to Georgia (serif).
+*/
+@font-face {
+  font-family: 'Adlery Pro';
+  src: url('/fonts/adlery-pro.woff2') format('woff2'),
+       url('/fonts/adlery-pro.woff')  format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+
+
+
+/* ── 3. DESIGN TOKENS — OLED BLACK THEME ─────────────────── */
+/*
+  Palette Philosophy:
+    Background  → true black (#000000) for OLED pixel-off savings
+    Surfaces    → near-black steps (#090909, #111111) for elevation
+    Accent      → #46D296 emerald — only on interactive / status elements
+    Text        → pure white hierarchy (100% → 72% → 45% → 25%)
+    Borders     → ultra-thin white alpha (0.06 → 0.12 on hover)
+*/
 :root {
-  --font-logo: 'Adlery Pro', cursive, sans-serif;
-  --font-heading: 'HORIZONS', 'Geist', sans-serif;
-  --font-body: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* ── Fonts ── */
+  --font-logo:    'Adlery Pro', cursive;
+  --font-heading: var(--font-display), 'Georgia', 'Times New Roman', serif;
+  --font-body:    var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-code:    var(--font-mono), 'Courier New', monospace;
 
-  --background: #090A0C;
-  --foreground: #F8FAFC;
-  --card: #121519;
-  --card-foreground: #F8FAFC;
-  --popover: #090A0C;
-  --popover-foreground: #F8FAFC;
-  --primary: #3FA37C;
-  --primary-foreground: #F8FAFC;
-  --secondary: #121519;
-  --secondary-foreground: #F8FAFC;
-  --muted: #121519;
-  --muted-foreground: #94A3B8;
-  --accent: #3FA37C;
-  --accent-foreground: #F8FAFC;
-  --destructive: #EF4444;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: #3FA37C;
-  --radius: 1rem; /* 16px exact card radius */
-  --sidebar: #090A0C;
-  --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #3FA37C;
-  --sidebar-primary-foreground: #F8FAFC;
-  --sidebar-accent: #121519;
-  --sidebar-accent-foreground: #F8FAFC;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #3FA37C;
+  /* ── Extended OLED surface tokens ── */
+  --surface:           #090909;  /* Primary cards, panels            */
+  --surface-secondary: #111111;  /* Secondary cards, nested surfaces  */
+  --surface-hover:     #151515;  /* Hover state for interactive items */
+  --surface-modal:     #0A0A0A;  /* Modals, popovers                 */
+  --sidebar-bg:        #050505;  /* Sidebar — darkest surface        */
+  --nav-bg:       rgba(0,0,0,0.9); /* Navbar backdrop                 */
+
+  /* ── Extended text tokens ── */
+  --text-primary:   #FFFFFF;
+  --text-secondary: rgba(255,255,255,0.72);
+  --text-muted:     rgba(255,255,255,0.45);
+  --text-disabled:  rgba(255,255,255,0.25);
+
+  /* ── Extended border tokens ── */
+  --border-default: rgba(255,255,255,0.06);
+  --border-hover:   rgba(255,255,255,0.12);
+  --border-active:  rgba(70,210,150,0.35);
+
+  /* ── Accent ── */
+  --accent-green:       #46D296;
+  --accent-green-hover: #5BE3A8;
+
+  /* ── shadcn / Tailwind compatible tokens ── */
+  --background:          #000000;
+  --foreground:          #FFFFFF;
+  --card:                #090909;
+  --card-foreground:     #FFFFFF;
+  --popover:             #0A0A0A;
+  --popover-foreground:  #FFFFFF;
+  --primary:             #46D296;
+  --primary-foreground:  #000000;
+  --secondary:           #111111;
+  --secondary-foreground:#FFFFFF;
+  --muted:               #111111;
+  --muted-foreground:    rgba(255,255,255,0.45);
+  --accent:              #46D296;
+  --accent-foreground:   #000000;
+  --destructive:         #EF4444;
+  --border:              rgba(255,255,255,0.06);
+  --input:               rgba(255,255,255,0.06);
+  --ring:                #46D296;
+  --radius:              0.75rem;
+
+  /* ── Sidebar tokens ── */
+  --sidebar:                   #050505;
+  --sidebar-foreground:        #FFFFFF;
+  --sidebar-primary:           #46D296;
+  --sidebar-primary-foreground:#000000;
+  --sidebar-accent:            #111111;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border:            rgba(255,255,255,0.06);
+  --sidebar-ring:              #46D296;
 }
 
+
+/* ── 4. TAILWIND v4 @theme INLINE ────────────────────────── */
+/*
+  Maps CSS custom properties → Tailwind color/font utilities.
+  --font-sans and --font-mono are injected by next/font at runtime.
+*/
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-body: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-heading: 'HORIZONS', 'Geist', sans-serif;
+  /* ── shadcn colour tokens ── */
+  --color-background:           var(--background);
+  --color-foreground:           var(--foreground);
+  --color-card:                 var(--card);
+  --color-card-foreground:      var(--card-foreground);
+  --color-popover:              var(--popover);
+  --color-popover-foreground:   var(--popover-foreground);
+  --color-primary:              var(--primary);
+  --color-primary-foreground:   var(--primary-foreground);
+  --color-secondary:            var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:                var(--muted);
+  --color-muted-foreground:     var(--muted-foreground);
+  --color-accent:               var(--accent);
+  --color-accent-foreground:    var(--accent-foreground);
+  --color-destructive:          var(--destructive);
+  --color-border:               var(--border);
+  --color-input:                var(--input);
+  --color-ring:                 var(--ring);
 
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-accent-emerald: #3FA37C;
-  --color-accent-emerald-hover: #348866;
+  /* ── OLED surface tokens (use as bg-surface, bg-surface-secondary etc.) ── */
+  --color-surface:              var(--surface);
+  --color-surface-secondary:    var(--surface-secondary);
+  --color-surface-hover:        var(--surface-hover);
+  --color-surface-modal:        var(--surface-modal);
+  --color-sidebar-bg:           var(--sidebar-bg);
+
+  /* ── OLED text tokens ── */
+  --color-text-primary:         var(--text-primary);
+  --color-text-secondary:       var(--text-secondary);
+  --color-text-muted:           var(--text-muted);
+  --color-text-disabled:        var(--text-disabled);
+
+  /* ── OLED border tokens ── */
+  --color-border-default:       var(--border-default);
+  --color-border-hover:         var(--border-hover);
+  --color-border-active:        var(--border-active);
+
+  /* ── Accent ── */
+  --color-accent-green:         var(--accent-green);
+  --color-accent-green-hover:   var(--accent-green-hover);
+
+  /* ── Fonts ── */
+  --font-sans:    var(--font-sans);
+  --font-mono:    var(--font-mono);
+
+  /* ── Radii ── */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
+
+/* ── 5. BASE LAYER ────────────────────────────────────────── */
 @layer base {
+  /* Universal border + focus ring using plain CSS (avoids @apply unknown utility) */
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
   }
-  
-  html, body {
+
+  html {
     font-family: var(--font-body);
-    @apply bg-background text-foreground antialiased;
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  /* HORIZONS Marketing Headings (Desktop 64px, Tablet 52px, Mobile 38px, Line-height 1.05, Tracking 0.02em, Max-width 650px) */
-  .font-marketing-hero {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.05;
-    max-width: 650px;
+  body {
+    min-height: 100vh;
   }
 
+  /* ── Font utility classes ─────────────────────────────────
+     Components reference these class names.
+     The underlying var() means changing a font only requires
+     updating the token in :root — nothing else.
+  ───────────────────────────────────────────────────────── */
+
+  /* Instrument Serif — marketing headings ONLY (hero, sections, pricing, CTA) */
   .font-heading {
     font-family: var(--font-heading);
-    font-weight: 700;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
   }
 
+  /* Geist — everything else in the application */
   .font-body {
     font-family: var(--font-body);
   }
 
-  /* JetBrains Mono ONLY for code, metrics, execution IDs, terminal logs */
+  /* JetBrains Mono — code, metrics, IDs, terminal output ONLY */
   .font-mono {
-    font-family: var(--font-mono);
+    font-family: var(--font-code);
   }
 }
 
-/* Typography Scale Utilities */
+/* ── 6. TYPOGRAPHY SCALE UTILITIES ───────────────────────── */
+/*
+  These utilities encode the full type scale.
+  Use .font-heading on marketing headings.
+  Everything else inherits Geist from html/body.
+
+  Scale:
+    Display XL  64px / 700 / 1.02 / tracking 0.02em  (hero only)
+    Display     56px / 700 / 1.05
+    H1          48px / 700 / 1.10
+    H2          38px / 600 / 1.15
+    H3          30px / 600 / 1.20
+    Title       24px / 600 / 1.30
+    Body LG     20px / 400 / 1.60
+    Body        18px / 400 / 1.65
+    Small       16px / 400 / 1.60
+    Caption     14px / 500 / 1.40
+*/
+
+/* Marketing heading scale — pair with .font-heading */
 .text-display-xl {
-  font-size: 64px;
+  font-size: clamp(38px, 6vw, 64px);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.02;
   letter-spacing: 0.02em;
+  max-width: 650px;
 }
 
 .text-display {
-  font-size: 56px;
+  font-size: clamp(32px, 5vw, 56px);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
 }
 
+/* Section headings — pair with .font-heading */
 .text-h1 {
-  font-size: 48px;
+  font-size: clamp(32px, 4.5vw, 48px);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.10;
 }
 
 .text-h2 {
-  font-size: 38px;
+  font-size: clamp(26px, 3.5vw, 38px);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .text-h3 {
-  font-size: 30px;
+  font-size: clamp(22px, 2.8vw, 30px);
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.20;
 }
 
+/* Application UI — Geist at these sizes */
 .text-title {
   font-size: 24px;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.30;
 }
 
 .text-body-lg {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.60;
 }
 
 .text-body {
   font-size: 18px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.65;
 }
 
 .text-small {
   font-size: 16px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.60;
 }
 
 .text-caption {
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.40;
 }
 
-/* Selection */
+/* ── 7. MARKETING HEADING UTILITIES ─────────────────────── */
+/*
+  Instrument Serif — editorial serif for hero + section titles.
+  Weight 400 (its default weight); letter-spacing tight at -0.02em.
+  heading-hero   → hero <h1>  (clamp 38→64px, line-height 1.0)
+  heading-section → section <h2> (clamp 26→42px, line-height 1.08)
+*/
+.heading-hero {
+  font-family: var(--font-heading);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  max-width: 650px;
+}
+
+.heading-section {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+/* ── 8. SELECTION ─────────────────────────────────────────── */
 ::selection {
   background-color: rgba(63, 163, 124, 0.25);
-  color: #F8FAFC;
+  color: #FFFFFF;
 }

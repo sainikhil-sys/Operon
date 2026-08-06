@@ -26,16 +26,16 @@ const footerLinks = {
 
 export function LandingFooter() {
   return (
-    <footer className="bg-[#090A0C] border-t border-[rgba(255,255,255,0.08)] py-16 text-[#94A3B8]">
+    <footer className="bg-[#000000] border-t border-[rgba(255,255,255,0.06)] py-16 text-[rgba(255,255,255,0.45)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 pb-12 border-b border-[rgba(255,255,255,0.08)]">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 pb-12 border-b border-[rgba(255,255,255,0.06)]">
 
           {/* Brand */}
           <div className="md:col-span-2 space-y-5">
             <Link href="/" className="inline-block">
               <OperonLogo className="h-8 w-auto" />
             </Link>
-            <p className="text-sm text-[#94A3B8] font-body leading-relaxed max-w-sm">
+            <p className="text-sm text-[rgba(255,255,255,0.45)] font-body leading-relaxed max-w-sm">
               The AI Business Operating System connecting Sales, Finance, Engineering, Operations, and Knowledge into one real-time neural core.
             </p>
           </div>
@@ -43,11 +43,11 @@ export function LandingFooter() {
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section} className="space-y-4">
-              <h4 className="text-caption font-medium text-[#F8FAFC] font-body">{section}</h4>
+              <h4 className="text-caption font-medium text-[#FFFFFF] font-body">{section}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <Link href={link.href} className="text-sm text-[#94A3B8] hover:text-[#F8FAFC] transition-colors font-body">
+                    <Link href={link.href} className="text-sm text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-colors font-body">
                       {link.label}
                     </Link>
                   </li>
@@ -58,7 +58,7 @@ export function LandingFooter() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm font-body text-[#94A3B8]">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm font-body text-[rgba(255,255,255,0.45)]">
           <p>© 2026 CogniQA Systems Inc.</p>
           <p className="mt-2 sm:mt-0">Operon™ is a trademark of CogniQA Systems.</p>
         </div>

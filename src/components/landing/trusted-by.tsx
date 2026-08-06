@@ -31,9 +31,9 @@ const partners: Partner[] = [
 
 export function TrustedBy() {
   return (
-    <section className="py-10 bg-[#090A0C] overflow-hidden border-y border-[rgba(255,255,255,0.08)]">
+    <section className="py-10 bg-[#000000] overflow-hidden border-y border-[rgba(255,255,255,0.06)]">
       <div className="max-w-7xl mx-auto px-4 text-center mb-6">
-        <p className="text-caption font-mono text-[#94A3B8] uppercase tracking-widest">
+        <p className="text-caption font-mono text-[rgba(255,255,255,0.45)] uppercase tracking-widest">
           Integrated with modern infrastructure
         </p>
       </div>
@@ -49,9 +49,9 @@ export function TrustedBy() {
             return (
               <div
                 key={i}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-colors"
               >
-                <Icon size={20} className="text-[#3FA37C]" />
+                <Icon size={20} className="text-[#46D296]" />
                 <span className="text-sm font-medium font-body whitespace-nowrap">{partner.name}</span>
               </div>
             )

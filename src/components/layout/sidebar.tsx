@@ -26,6 +26,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Separator } from '@/components/ui/separator'
+import { OperonLogo } from '@/components/brand/operon-logo'
 
 const missionItems = [
   { label: 'Mission Control', href: '/dashboard', icon: Gauge },
@@ -68,7 +69,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
   const renderNavGroup = (title: string, items: typeof missionItems) => (
     <div className="space-y-0.5 py-1">
       {!collapsed && (
-        <p className="px-3 text-[10px] font-semibold text-[#94A3B8] uppercase tracking-wider mb-1 font-mono">
+        <p className="px-3 text-[10px] font-semibold text-[rgba(255,255,255,0.45)] uppercase tracking-wider mb-1 font-mono">
           {title}
         </p>
       )}
@@ -85,12 +86,12 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
               "flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-body transition-all duration-150",
               collapsed && "justify-center px-2",
               isActive
-                ? "bg-[#4A7C72] text-[#F8FAFC] font-bold shadow-xs border border-[#4A7C72]/50"
-                : "text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#1F2937]"
+                ? "bg-[#46D296] text-[#FFFFFF] font-bold shadow-xs border border-[#46D296]/50"
+                : "text-[rgba(255,255,255,0.72)] hover:text-[#FFFFFF] hover:bg-[#111111]"
             )}
             title={collapsed ? item.label : undefined}
           >
-            <Icon size={18} weight={isActive ? "regular" : "regular"} className={cn("shrink-0", isActive ? "text-[#F8FAFC]" : "text-[#94A3B8]")} />
+            <Icon size={18} weight={isActive ? "regular" : "regular"} className={cn("shrink-0", isActive ? "text-[#FFFFFF]" : "text-[rgba(255,255,255,0.45)]")} />
             {!collapsed && <span>{item.label}</span>}
           </Link>
         )
@@ -100,7 +101,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
 
   const sidebarContent = (
     <div className={cn(
-      "flex flex-col h-full bg-[#0E131A] border-r border-[rgba(255,255,255,0.06)]",
+      "flex flex-col h-full bg-[#000000] border-r border-[rgba(255,255,255,0.06)]",
       collapsed ? "w-[68px]" : "w-64"
     )}>
       {/* Brand Header */}
@@ -108,26 +109,20 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
         "flex items-center h-16 px-4 border-b border-[rgba(255,255,255,0.06)] shrink-0",
         collapsed ? "justify-center" : "justify-between"
       )}>
-        <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#4A7C72] text-[#F8FAFC] font-bold shrink-0 shadow-xs">
-            <Brain size={20} weight="regular" />
-          </div>
-          {!collapsed && (
-            <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-[#F8FAFC] leading-tight font-heading">
-                OPERON
-              </span>
-              <span className="text-[9px] text-[#94A3B8] leading-tight font-mono">
-                CogniQA Systems
-              </span>
+        <Link href="/dashboard" className="flex items-center">
+          {collapsed ? (
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#46D296] text-[#FFFFFF] shrink-0">
+              <Brain size={20} />
             </div>
+          ) : (
+            <OperonLogo className="h-7 w-auto" />
           )}
         </Link>
         {!collapsed && (
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1F2937] hidden lg:flex"
+            className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
             onClick={onToggleCollapse}
           >
             <CaretLeft size={16} />
@@ -140,17 +135,17 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
         <button
           onClick={onOpenCommand}
           className={cn(
-            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#0B0F14] hover:bg-[#131922] border border-[rgba(255,255,255,0.06)] text-xs text-[#94A3B8] hover:text-[#F8FAFC] transition-all duration-150 font-body",
+            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#000000] hover:bg-[#090909] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 font-body",
             collapsed && "justify-center px-2"
           )}
           title="Command Palette (Ctrl+K)"
         >
           <span className="flex items-center gap-2">
-            <Command size={16} className="text-[#4A7C72] shrink-0" />
+            <Command size={16} className="text-[#46D296] shrink-0" />
             {!collapsed && <span>Command Center</span>}
           </span>
           {!collapsed && (
-            <kbd className="font-mono text-[9px] bg-[#0E131A] border border-[rgba(255,255,255,0.06)] px-1.5 py-0.5 rounded text-[#4A7C72]">
+            <kbd className="font-mono text-[9px] bg-[#000000] border border-[rgba(255,255,255,0.06)] px-1.5 py-0.5 rounded text-[#46D296]">
               ⌘K
             </kbd>
           )}
@@ -171,12 +166,12 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
       {/* Footer Status */}
       {!collapsed && (
         <div className="px-4 py-3 border-t border-[rgba(255,255,255,0.06)]">
-          <div className="flex items-center justify-between text-[11px] text-[#94A3B8]">
+          <div className="flex items-center justify-between text-[11px] text-[rgba(255,255,255,0.45)]">
             <span className="flex items-center gap-1.5 font-body">
-              <span className="h-2 w-2 rounded-full bg-[#4A7C72] animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-[#46D296] animate-pulse" />
               CogniQA Engine
             </span>
-            <span className="font-mono text-[10px] text-[#4A7C72]">v6.0.0</span>
+            <span className="font-mono text-[10px] text-[#46D296]">v6.0.0</span>
           </div>
         </div>
       )}

@@ -29,25 +29,25 @@ export function LeadChart({ data }: LeadChartProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.35 }}
-      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#131922] p-5 shadow-sm"
+      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#090909] p-5 shadow-sm"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="font-bold text-[#F8FAFC] font-body uppercase text-sm tracking-wider">Lead Pipeline</h3>
-          <p className="text-xs text-[#94A3B8] font-mono mt-0.5">New vs Closed-Won vs Lost telemetry</p>
+          <h3 className="font-bold text-[#FFFFFF] font-body uppercase text-sm tracking-wider">Lead Pipeline</h3>
+          <p className="text-xs text-[rgba(255,255,255,0.45)] font-mono mt-0.5">New vs Closed-Won vs Lost telemetry</p>
         </div>
         <div className="flex items-center gap-4 text-xs font-mono">
           <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-[#4A7C72]" />
-            <span className="text-[#94A3B8]">New</span>
+            <div className="h-2.5 w-2.5 rounded-full bg-[#46D296]" />
+            <span className="text-[rgba(255,255,255,0.45)]">New</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-[#3FB950]" />
-            <span className="text-[#94A3B8]">Won</span>
+            <span className="text-[rgba(255,255,255,0.45)]">Won</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-[#D65D5D]" />
-            <span className="text-[#94A3B8]">Lost</span>
+            <span className="text-[rgba(255,255,255,0.45)]">Lost</span>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ export function LeadChart({ data }: LeadChartProps) {
 
           return (
             <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
-              <span className="text-[10px] text-[#94A3B8] font-mono">{total}</span>
+              <span className="text-[10px] text-[rgba(255,255,255,0.45)] font-mono">{total}</span>
               <motion.div
                 initial={{ height: 0 }}
                 animate={{ height: `${totalHeight}%` }}
@@ -75,7 +75,7 @@ export function LeadChart({ data }: LeadChartProps) {
                   style={{ height: `${wonPct}%` }}
                 />
                 <div
-                  className="bg-[#4A7C72]/80"
+                  className="bg-[#46D296]/80"
                   style={{ height: `${newPct}%` }}
                 />
                 <div
@@ -83,7 +83,7 @@ export function LeadChart({ data }: LeadChartProps) {
                   style={{ height: `${lostPct}%` }}
                 />
               </motion.div>
-              <span className="text-xs text-[#94A3B8] font-mono">{d.month}</span>
+              <span className="text-xs text-[rgba(255,255,255,0.45)] font-mono">{d.month}</span>
             </div>
           )
         })}

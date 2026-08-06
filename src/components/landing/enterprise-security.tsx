@@ -19,17 +19,17 @@ const securityFeatures: SecurityFeature[] = [
 
 export function EnterpriseSecuritySection() {
   return (
-    <section id="security" className="py-32 bg-[#090A0C] relative">
+    <section id="security" className="py-32 bg-[#000000] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-caption font-mono text-[#3FA37C] uppercase tracking-widest block mb-3">
+          <span className="text-caption font-mono text-[#46D296] uppercase tracking-widest block mb-3">
             Enterprise Security
           </span>
-          <h2 className="text-h2 text-[#F8FAFC] font-heading leading-tight">
+          <h2 className="heading-section text-[#FFFFFF]">
             Security Built for Fortune 500.{' '}
-            <span className="text-[#94A3B8]">Zero Trust Architecture.</span>
+            <span className="text-[rgba(255,255,255,0.45)]">Zero Trust Architecture.</span>
           </h2>
         </div>
 
@@ -44,17 +44,17 @@ export function EnterpriseSecuritySection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="p-6 rounded-2xl bg-[#121519] border border-[rgba(255,255,255,0.08)] hover:border-[#3FA37C]/30 transition-colors duration-200 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-[#090909] border border-[rgba(255,255,255,0.06)] hover:border-[#46D296]/30 transition-colors duration-200 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="p-2.5 rounded-xl bg-[#090A0C] text-[#3FA37C] w-fit mb-5">
+                  <div className="p-2.5 rounded-xl bg-[#000000] text-[#46D296] w-fit mb-5">
                     <Icon size={22} />
                   </div>
-                  <h4 className="text-base font-semibold text-[#F8FAFC] font-body mb-2">{item.title}</h4>
-                  <p className="text-sm text-[#94A3B8] leading-relaxed font-body">{item.desc}</p>
+                  <h4 className="text-base font-semibold text-[#FFFFFF] font-body mb-2">{item.title}</h4>
+                  <p className="text-sm text-[rgba(255,255,255,0.45)] leading-relaxed font-body">{item.desc}</p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.08)] text-caption font-mono text-[#3FA37C]">
+                <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.06)] text-caption font-mono text-[#46D296]">
                   SOC2 Type II Compliant
                 </div>
               </motion.div>

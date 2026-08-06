@@ -62,7 +62,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            className="relative w-full max-w-xl bg-[#25376D] border border-[#436B87]/60 rounded-2xl shadow-2xl overflow-hidden z-50 text-[#F8FAFC]"
+            className="relative w-full max-w-xl bg-[#25376D] border border-[#436B87]/60 rounded-2xl shadow-2xl overflow-hidden z-50 text-[#FFFFFF]"
           >
             {/* Search Input Bar */}
             <div className="flex items-center px-4 border-b border-[#436B87]/40 bg-[#1D2B57]">
@@ -72,12 +72,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Type a command or search modules..."
-                className="w-full h-14 bg-transparent px-3 text-sm font-body focus:outline-none text-[#F8FAFC] placeholder-[#B7B28B]"
+                className="w-full h-14 bg-transparent px-3 text-sm font-body focus:outline-none text-[#FFFFFF] placeholder-[#B7B28B]"
                 autoFocus
               />
               <button
                 onClick={() => onOpenChange(false)}
-                className="p-1 text-[#B7B28B] hover:text-[#F8FAFC] transition-colors"
+                className="p-1 text-[#B7B28B] hover:text-[#FFFFFF] transition-colors"
               >
                 <X size={18} />
               </button>
@@ -100,7 +100,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     >
                       <div className="flex items-center gap-3">
                         <Icon size={18} className="text-[#FFC482] group-hover:scale-110 transition-transform" />
-                        <span className="text-[#F8FAFC] group-hover:text-[#FFC482] transition-colors">{cmd.label}</span>
+                        <span className="text-[#FFFFFF] group-hover:text-[#FFC482] transition-colors">{cmd.label}</span>
                       </div>
                       <span className="text-[10px] font-mono text-[#619EA0] bg-[#619EA0]/10 px-2 py-0.5 rounded border border-[#619EA0]/20">
                         {cmd.category}

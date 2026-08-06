@@ -64,26 +64,26 @@ export function PricingSection() {
 
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-caption font-mono text-[#3FA37C] uppercase tracking-widest block mb-3">
+          <span className="text-caption font-mono text-[#46D296] uppercase tracking-widest block mb-3">
             Pricing
           </span>
-          <h2 className="text-h2 text-[#F8FAFC] font-heading leading-tight">
+          <h2 className="heading-section text-[#FFFFFF]">
             Transparent Pricing{' '}
-            <span className="text-[#94A3B8]">For Ambitious Teams</span>
+            <span className="text-[rgba(255,255,255,0.45)]">For Ambitious Teams</span>
           </h2>
 
           {/* Billing Toggle */}
           <div className="mt-8 flex items-center justify-center gap-3">
-            <span className={`text-sm font-body ${!annual ? 'text-[#F8FAFC] font-medium' : 'text-[#94A3B8]'}`}>Monthly</span>
+            <span className={`text-sm font-body ${!annual ? 'text-[#FFFFFF] font-medium' : 'text-[rgba(255,255,255,0.45)]'}`}>Monthly</span>
             <button
               onClick={() => setAnnual(!annual)}
-              className="w-12 h-6 rounded-full bg-[#121519] p-1 relative transition-colors border border-[rgba(255,255,255,0.08)]"
+              className="w-12 h-6 rounded-full bg-[#090909] p-1 relative transition-colors border border-[rgba(255,255,255,0.06)]"
             >
-              <div className={`w-4 h-4 rounded-full bg-[#3FA37C] transition-transform ${annual ? 'translate-x-6' : 'translate-x-0'}`} />
+              <div className={`w-4 h-4 rounded-full bg-[#46D296] transition-transform ${annual ? 'translate-x-6' : 'translate-x-0'}`} />
             </button>
-            <span className={`text-sm font-body ${annual ? 'text-[#F8FAFC] font-medium' : 'text-[#94A3B8]'}`}>
+            <span className={`text-sm font-body ${annual ? 'text-[#FFFFFF] font-medium' : 'text-[rgba(255,255,255,0.45)]'}`}>
               Annual{' '}
-              <Badge variant="outline" className="ml-1 border-[#3FA37C]/30 bg-[#3FA37C]/10 text-[#3FA37C] text-caption font-mono">
+              <Badge variant="outline" className="ml-1 border-[#46D296]/30 bg-[#46D296]/10 text-[#46D296] text-caption font-mono">
                 Save 20%
               </Badge>
             </span>
@@ -101,33 +101,33 @@ export function PricingSection() {
               transition={{ delay: i * 0.08, duration: 0.4 }}
               className={`p-8 rounded-2xl flex flex-col justify-between relative ${
                 plan.popular
-                  ? 'bg-[#090A0C] border border-[#3FA37C]/40'
-                  : 'bg-[#090A0C] border border-[rgba(255,255,255,0.08)]'
+                  ? 'bg-[#000000] border border-[#46D296]/40'
+                  : 'bg-[#000000] border border-[rgba(255,255,255,0.06)]'
               }`}
             >
               {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#3FA37C] text-[#F8FAFC] font-medium px-3 py-1 text-caption font-body">
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#46D296] text-[#FFFFFF] font-medium px-3 py-1 text-caption font-body">
                   Most Popular
                 </Badge>
               )}
 
               <div>
-                <h3 className="text-lg font-semibold text-[#F8FAFC] font-body">{plan.name}</h3>
-                <p className="text-sm text-[#94A3B8] font-body mt-2 min-h-[40px]">{plan.desc}</p>
+                <h3 className="text-lg font-semibold text-[#FFFFFF] font-body">{plan.name}</h3>
+                <p className="text-sm text-[rgba(255,255,255,0.45)] font-body mt-2 min-h-[40px]">{plan.desc}</p>
 
                 <div className="my-8">
-                  <span className="text-4xl font-bold text-[#F8FAFC] font-mono">
+                  <span className="text-4xl font-bold text-[#FFFFFF] font-mono">
                     {annual ? plan.priceAnnual : plan.priceMonthly}
                   </span>
                   {plan.priceMonthly !== 'Custom' && (
-                    <span className="text-sm text-[#94A3B8] font-body ml-1">/ month</span>
+                    <span className="text-sm text-[rgba(255,255,255,0.45)] font-body ml-1">/ month</span>
                   )}
                 </div>
 
-                <div className="space-y-3 pt-6 border-t border-[rgba(255,255,255,0.08)] text-sm font-body text-[#CBD5E1]">
+                <div className="space-y-3 pt-6 border-t border-[rgba(255,255,255,0.06)] text-sm font-body text-[rgba(255,255,255,0.72)]">
                   {plan.features.map((feat, idx) => (
                     <div key={idx} className="flex items-start gap-2.5">
-                      <Check size={16} className="text-[#3FA37C] shrink-0 mt-0.5" weight="bold" />
+                      <Check size={16} className="text-[#46D296] shrink-0 mt-0.5" weight="bold" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -139,8 +139,8 @@ export function PricingSection() {
                   <Button
                     className={`w-full h-11 text-sm font-medium font-body rounded-xl gap-2 ${
                       plan.popular
-                        ? 'bg-[#3FA37C] hover:bg-[#348866] text-[#F8FAFC]'
-                        : 'bg-[#121519] hover:bg-[#1A222D] text-[#F8FAFC] border border-[rgba(255,255,255,0.08)]'
+                        ? 'bg-[#46D296] hover:bg-[#5BE3A8] text-[#FFFFFF]'
+                        : 'bg-[#090909] hover:bg-[#111111] text-[#FFFFFF] border border-[rgba(255,255,255,0.06)]'
                     }`}
                   >
                     {plan.cta} <ArrowRight size={14} />

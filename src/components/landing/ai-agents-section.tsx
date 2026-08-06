@@ -44,14 +44,14 @@ export function AIAgentsSection() {
 
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-caption font-mono text-[#3FA37C] uppercase tracking-widest block mb-3">
+          <span className="text-caption font-mono text-[#46D296] uppercase tracking-widest block mb-3">
             AI Agents
           </span>
-          <h2 className="text-h2 text-[#F8FAFC] font-heading leading-tight">
+          <h2 className="heading-section text-[#FFFFFF]">
             Specialized AI Agents.{' '}
-            <span className="text-[#94A3B8]">Orchestrated by CEO Strategy AI.</span>
+            <span className="text-[rgba(255,255,255,0.45)]">Orchestrated by CEO Strategy AI.</span>
           </h2>
-          <p className="mt-5 text-body text-[#94A3B8] font-body leading-relaxed">
+          <p className="mt-5 text-body text-[rgba(255,255,255,0.45)] font-body leading-relaxed">
             Operon AI agents are autonomous, task-oriented workers executing continuous multi-step workflows across your business.
           </p>
         </div>
@@ -62,28 +62,28 @@ export function AIAgentsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-8 p-8 rounded-2xl bg-[#090A0C] border border-[#3FA37C]/30"
+          className="mb-8 p-8 rounded-2xl bg-[#000000] border border-[#46D296]/30"
         >
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
             <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-[#3FA37C] text-[#F8FAFC]">
+              <div className="p-3 rounded-xl bg-[#46D296] text-[#FFFFFF]">
                 <Robot size={28} />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-semibold text-[#F8FAFC] font-body">CEO Strategy AI Agent</h3>
-                  <Badge variant="outline" className="border-[#3FA37C]/40 bg-[#3FA37C]/10 text-[#3FA37C] text-caption font-mono">
+                  <h3 className="text-lg font-semibold text-[#FFFFFF] font-body">CEO Strategy AI Agent</h3>
+                  <Badge variant="outline" className="border-[#46D296]/40 bg-[#46D296]/10 text-[#46D296] text-caption font-mono">
                     Master Controller
                   </Badge>
                 </div>
-                <p className="text-sm text-[#94A3B8] font-body mt-1">
+                <p className="text-sm text-[rgba(255,255,255,0.45)] font-body mt-1">
                   Continuously synthesizes company-wide cross-department telemetry into executive action plans.
                 </p>
               </div>
             </div>
 
-            <div className="px-4 py-2 rounded-xl bg-[#121519] border border-[rgba(255,255,255,0.08)] font-mono text-sm text-[#F8FAFC]">
-              <span className="text-[#3FA37C] font-semibold">98.9%</span> Strategic Efficiency
+            <div className="px-4 py-2 rounded-xl bg-[#090909] border border-[rgba(255,255,255,0.06)] font-mono text-sm text-[#FFFFFF]">
+              <span className="text-[#46D296] font-semibold">98.9%</span> Strategic Efficiency
             </div>
           </div>
 
@@ -93,9 +93,9 @@ export function AIAgentsSection() {
               { label: 'Telemetry Monitor', value: '24/7 Anomaly & Revenue Runway Tracking' },
               { label: 'Executive Brief', value: 'Daily AI Intelligence Summaries' },
             ].map((item) => (
-              <div key={item.label} className="p-4 rounded-xl bg-[#121519] border border-[rgba(255,255,255,0.08)] space-y-1">
-                <span className="text-caption font-mono text-[#3FA37C] uppercase">{item.label}</span>
-                <p className="text-[#F8FAFC] font-medium">{item.value}</p>
+              <div key={item.label} className="p-4 rounded-xl bg-[#090909] border border-[rgba(255,255,255,0.06)] space-y-1">
+                <span className="text-caption font-mono text-[#46D296] uppercase">{item.label}</span>
+                <p className="text-[#FFFFFF] font-medium">{item.value}</p>
               </div>
             ))}
           </div>
@@ -112,27 +112,27 @@ export function AIAgentsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="p-6 rounded-2xl bg-[#090A0C] border border-[rgba(255,255,255,0.08)] hover:border-[#3FA37C]/30 transition-colors duration-200 flex flex-col justify-between group"
+                className="p-6 rounded-2xl bg-[#000000] border border-[rgba(255,255,255,0.06)] hover:border-[#46D296]/30 transition-colors duration-200 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="p-2.5 rounded-xl bg-[#121519] text-[#3FA37C]">
+                    <div className="p-2.5 rounded-xl bg-[#090909] text-[#46D296]">
                       <Icon size={22} />
                     </div>
-                    <span className="text-caption font-mono text-[#3FA37C] bg-[#3FA37C]/10 px-2 py-0.5 rounded-md">
+                    <span className="text-caption font-mono text-[#46D296] bg-[#46D296]/10 px-2 py-0.5 rounded-md">
                       {agent.metric}
                     </span>
                   </div>
 
-                  <h4 className="text-lg font-semibold text-[#F8FAFC] font-body">{agent.name}</h4>
-                  <p className="text-caption text-[#3FA37C] font-mono mt-1">{agent.role}</p>
+                  <h4 className="text-lg font-semibold text-[#FFFFFF] font-body">{agent.name}</h4>
+                  <p className="text-caption text-[#46D296] font-mono mt-1">{agent.role}</p>
 
-                  <p className="text-sm text-[#94A3B8] leading-relaxed font-body mt-3">
+                  <p className="text-sm text-[rgba(255,255,255,0.45)] leading-relaxed font-body mt-3">
                     {agent.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-between text-sm text-[#3FA37C] font-mono">
+                <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between text-sm text-[#46D296] font-mono">
                   <span>Active</span>
                   <CheckCircle size={16} weight="fill" />
                 </div>
