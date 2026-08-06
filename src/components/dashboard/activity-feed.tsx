@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { formatDate } from '@/lib/utils'
-import { Users, CheckSquare, UserCheck, Activity } from 'lucide-react'
+import { Users, CheckSquare, UserCheck, Pulse } from '@phosphor-icons/react'
 
 interface ActivityItem {
   id: string
@@ -16,9 +16,9 @@ interface ActivityFeedProps {
 }
 
 const typeConfig = {
-  lead: { icon: Users, color: 'bg-blue-500/10 text-blue-500' },
-  task: { icon: CheckSquare, color: 'bg-amber-500/10 text-amber-500' },
-  customer: { icon: UserCheck, color: 'bg-emerald-500/10 text-emerald-500' },
+  lead: { icon: Users, color: 'bg-[#1A222D] text-[#F8FAFC]' },
+  task: { icon: CheckSquare, color: 'bg-[#1A222D] text-[#F8FAFC]' },
+  customer: { icon: UserCheck, color: 'bg-[#1A222D] text-[#3FB950]' },
 }
 
 export function ActivityFeed({ activities }: ActivityFeedProps) {
@@ -27,19 +27,21 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.4 }}
-      className="rounded-xl border border-border bg-card p-5"
+      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#131922] p-5 shadow-sm"
     >
-      <h3 className="font-semibold mb-4">Recent Activity</h3>
+      <h3 className="font-bold text-sm text-[#F8FAFC] font-body mb-4 uppercase tracking-wider">
+        Operational Activity Log
+      </h3>
 
       <div className="space-y-1">
         {activities.length === 0 ? (
-          <div className="py-8 text-center text-sm text-muted-foreground flex flex-col items-center justify-center gap-2">
-            <Activity className="h-5 w-5 text-muted-foreground/50 animate-pulse" />
-            <span>No business activity logged yet.</span>
+          <div className="py-8 text-center text-xs text-[#94A3B8] flex flex-col items-center justify-center gap-2 font-body">
+            <Pulse size={20} className="text-[#94A3B8]/50 animate-pulse" />
+            <span>No operational activity logged yet.</span>
           </div>
         ) : (
           activities.map((activity, i) => {
-            const config = typeConfig[activity.type] || { icon: Activity, color: 'bg-muted text-muted-foreground' }
+            const config = typeConfig[activity.type] || { icon: Pulse, color: 'bg-[#1A222D] text-[#94A3B8]' }
             const Icon = config.icon
 
             return (
@@ -48,14 +50,14 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.05 * i }}
-                className="flex items-start gap-3 py-2.5 px-2 rounded-lg hover:bg-accent/50 transition-colors"
+                className="flex items-start gap-3 py-2.5 px-3 rounded-xl bg-[#0B0F14]/60 hover:bg-[#1A222D] border border-transparent hover:border-[rgba(255,255,255,0.06)] transition-all"
               >
-                <div className={`rounded-md p-1.5 shrink-0 mt-0.5 ${config.color}`}>
-                  <Icon className="h-3.5 w-3.5" />
+                <div className={`rounded-lg p-1.5 shrink-0 mt-0.5 border border-[rgba(255,255,255,0.06)] ${config.color}`}>
+                  <Icon size={16} weight="regular" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm leading-relaxed">{activity.description}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                <div className="flex-1 min-w-0 font-body">
+                  <p className="text-xs text-[#F8FAFC] leading-relaxed">{activity.description}</p>
+                  <p className="text-[10px] text-[#94A3B8] mt-0.5 font-mono">
                     {formatDate(activity.timestamp, 'relative')}
                   </p>
                 </div>

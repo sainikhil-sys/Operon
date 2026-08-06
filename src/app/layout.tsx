@@ -1,31 +1,33 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-const inter = Inter({
+const geist = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Operon | AI-Powered Business Growth Platform",
+  title: "Operon | AI Business Operating System",
   description:
-    "Generate leads, manage customers, automate follow-ups, and grow your revenue with Operon — the AI-powered growth engine for modern businesses.",
+    "Unify Sales, Finance, Engineering, Operations, and Knowledge into a single neural intelligence graph with Operon by CogniQA Systems.",
   keywords: [
-    "CRM",
-    "lead management",
-    "AI assistant",
-    "business growth",
-    "sales automation",
-    "customer management",
+    "AI OS",
+    "Business Operating System",
+    "CogniQA Systems",
+    "Operon",
+    "Enterprise Automation",
+    "pgvector",
   ],
 };
 
@@ -37,10 +39,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${geist.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-background text-foreground transition-colors duration-200">
+      <body className="min-h-full bg-background text-foreground transition-colors duration-200 font-sans">
         <ThemeProvider>
           <TooltipProvider>
             {children}

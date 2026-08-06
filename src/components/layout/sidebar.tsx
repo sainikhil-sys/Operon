@@ -4,27 +4,54 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
-  LayoutDashboard,
-  Users,
-  UserCheck,
+  Gauge,
+  Tray,
   CheckSquare,
-  Bot,
-  Settings,
+  CalendarBlank,
+  Users,
+  TrendUp,
+  Receipt,
+  Code,
+  BookOpen,
+  Robot,
+  Lightning,
+  ChartBar,
+  Storefront,
+  Buildings,
+  Gear,
   Brain,
-  X,
-  ChevronLeft,
-} from 'lucide-react'
+  CaretLeft,
+  Command,
+} from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Separator } from '@/components/ui/separator'
 
-const menuItems = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { label: 'Leads', href: '/leads', icon: Users },
-  { label: 'Customers', href: '/customers', icon: UserCheck },
-  { label: 'Tasks', href: '/tasks', icon: CheckSquare },
-  { label: 'AI Assistant', href: '/ai-assistant', icon: Bot },
-  { label: 'Settings', href: '/settings', icon: Settings },
+const missionItems = [
+  { label: 'Mission Control', href: '/dashboard', icon: Gauge },
+  { label: 'Inbox', href: '/inbox', icon: Tray },
+  { label: 'Tasks & Ops', href: '/tasks', icon: CheckSquare },
+  { label: 'Calendar', href: '/calendar', icon: CalendarBlank },
+]
+
+const businessItems = [
+  { label: 'Customers', href: '/customers', icon: Users },
+  { label: 'Sales & CRM', href: '/sales', icon: TrendUp },
+  { label: 'Finance & Ledger', href: '/finance', icon: Receipt },
+  { label: 'Engineering Mesh', href: '/engineering', icon: Code },
+  { label: 'Knowledge Base', href: '/knowledge', icon: BookOpen },
+  { label: 'Automation Engine', href: '/automation', icon: Lightning },
+]
+
+const intelligenceItems = [
+  { label: 'AI Agents Hub', href: '/agents', icon: Robot },
+  { label: 'Analytics Telemetry', href: '/analytics', icon: ChartBar },
+  { label: 'Marketplace', href: '/marketplace', icon: Storefront },
+]
+
+const systemItems = [
+  { label: 'Organization', href: '/organization', icon: Buildings },
+  { label: 'Settings', href: '/settings', icon: Gear },
 ]
 
 interface SidebarProps {
@@ -32,96 +59,124 @@ interface SidebarProps {
   onClose: () => void
   collapsed: boolean
   onToggleCollapse: () => void
+  onOpenCommand: () => void
 }
 
-export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarProps) {
+export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenCommand }: SidebarProps) {
   const pathname = usePathname()
+
+  const renderNavGroup = (title: string, items: typeof missionItems) => (
+    <div className="space-y-0.5 py-1">
+      {!collapsed && (
+        <p className="px-3 text-[10px] font-semibold text-[#94A3B8] uppercase tracking-wider mb-1 font-mono">
+          {title}
+        </p>
+      )}
+      {items.map((item) => {
+        const isActive = pathname === item.href
+        const Icon = item.icon
+
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            className={cn(
+              "flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-body transition-all duration-150",
+              collapsed && "justify-center px-2",
+              isActive
+                ? "bg-[#4A7C72] text-[#F8FAFC] font-bold shadow-xs border border-[#4A7C72]/50"
+                : "text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#1F2937]"
+            )}
+            title={collapsed ? item.label : undefined}
+          >
+            <Icon size={18} weight={isActive ? "regular" : "regular"} className={cn("shrink-0", isActive ? "text-[#F8FAFC]" : "text-[#94A3B8]")} />
+            {!collapsed && <span>{item.label}</span>}
+          </Link>
+        )
+      })}
+    </div>
+  )
 
   const sidebarContent = (
     <div className={cn(
-      "flex flex-col h-full bg-sidebar border-r border-sidebar-border",
+      "flex flex-col h-full bg-[#0E131A] border-r border-[rgba(255,255,255,0.06)]",
       collapsed ? "w-[68px]" : "w-64"
     )}>
-      {/* Logo */}
+      {/* Brand Header */}
       <div className={cn(
-        "flex items-center h-16 px-4 border-b border-sidebar-border shrink-0",
+        "flex items-center h-16 px-4 border-b border-[rgba(255,255,255,0.06)] shrink-0",
         collapsed ? "justify-center" : "justify-between"
       )}>
         <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shrink-0">
-            <Brain className="h-4.5 w-4.5" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#4A7C72] text-[#F8FAFC] font-bold shrink-0 shadow-xs">
+            <Brain size={20} weight="regular" />
           </div>
           {!collapsed && (
-            <span className="text-base font-bold tracking-tight text-sidebar-foreground">
-              Operon
-            </span>
+            <div className="flex flex-col">
+              <span className="text-base font-bold tracking-tight text-[#F8FAFC] leading-tight font-heading">
+                OPERON
+              </span>
+              <span className="text-[9px] text-[#94A3B8] leading-tight font-mono">
+                CogniQA Systems
+              </span>
+            </div>
           )}
         </Link>
         {!collapsed && (
-          <>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7 text-muted-foreground hover:text-foreground hidden lg:flex"
-              onClick={onToggleCollapse}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7 text-muted-foreground hover:text-foreground lg:hidden"
-              onClick={onClose}
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </>
-        )}
-        {collapsed && (
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-muted-foreground hover:text-foreground absolute -right-3 top-5 bg-sidebar border border-sidebar-border rounded-full shadow-sm hidden lg:flex"
+            className="h-7 w-7 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1F2937] hidden lg:flex"
             onClick={onToggleCollapse}
           >
-            <ChevronLeft className="h-3.5 w-3.5 rotate-180" />
+            <CaretLeft size={16} />
           </Button>
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.href
-          const Icon = item.icon
+      {/* Raycast Command Palette Launcher */}
+      <div className="px-3 pt-3">
+        <button
+          onClick={onOpenCommand}
+          className={cn(
+            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#0B0F14] hover:bg-[#131922] border border-[rgba(255,255,255,0.06)] text-xs text-[#94A3B8] hover:text-[#F8FAFC] transition-all duration-150 font-body",
+            collapsed && "justify-center px-2"
+          )}
+          title="Command Palette (Ctrl+K)"
+        >
+          <span className="flex items-center gap-2">
+            <Command size={16} className="text-[#4A7C72] shrink-0" />
+            {!collapsed && <span>Command Center</span>}
+          </span>
+          {!collapsed && (
+            <kbd className="font-mono text-[9px] bg-[#0E131A] border border-[rgba(255,255,255,0.06)] px-1.5 py-0.5 rounded text-[#4A7C72]">
+              ⌘K
+            </kbd>
+          )}
+        </button>
+      </div>
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onClose}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150",
-                collapsed && "justify-center px-2",
-                isActive
-                  ? "bg-primary/10 text-primary shadow-sm"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              )}
-              title={collapsed ? item.label : undefined}
-            >
-              <Icon className={cn("h-4.5 w-4.5 shrink-0", isActive && "text-primary")} />
-              {!collapsed && <span>{item.label}</span>}
-            </Link>
-          )
-        })}
+      {/* 4 Categorized Navigation Sections */}
+      <nav className="flex-1 py-3 px-2 space-y-3 overflow-y-auto">
+        {renderNavGroup('Mission', missionItems)}
+        <Separator className="my-1.5 bg-[rgba(255,255,255,0.05)]" />
+        {renderNavGroup('Business', businessItems)}
+        <Separator className="my-1.5 bg-[rgba(255,255,255,0.05)]" />
+        {renderNavGroup('Intelligence', intelligenceItems)}
+        <Separator className="my-1.5 bg-[rgba(255,255,255,0.05)]" />
+        {renderNavGroup('System', systemItems)}
       </nav>
 
-      {/* Footer */}
+      {/* Footer Status */}
       {!collapsed && (
-        <div className="px-4 py-3 border-t border-sidebar-border">
-          <Separator className="mb-3" />
-          <div className="text-[10px] text-muted-foreground font-medium">
-            Operon V1.0 • AI Growth Platform
+        <div className="px-4 py-3 border-t border-[rgba(255,255,255,0.06)]">
+          <div className="flex items-center justify-between text-[11px] text-[#94A3B8]">
+            <span className="flex items-center gap-1.5 font-body">
+              <span className="h-2 w-2 rounded-full bg-[#4A7C72] animate-pulse" />
+              CogniQA Engine
+            </span>
+            <span className="font-mono text-[10px] text-[#4A7C72]">v6.0.0</span>
           </div>
         </div>
       )}
@@ -143,7 +198,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse }: SidebarP
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              className="fixed inset-0 bg-black/70 backdrop-blur-xs z-40 lg:hidden"
               onClick={onClose}
             />
             <motion.aside

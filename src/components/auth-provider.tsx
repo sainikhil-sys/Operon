@@ -21,69 +21,81 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const fetchProfile = useCallback(async (userId: string, email: string) => {
+  const fetchProfile = useCallback(async (userId: string, email: string, userMeta?: Record<string, any>) => {
     try {
       const supabase = createClient()
-      const { data, error } = await supabase
+
+      // 2.5-second timeout race to prevent UI freeze if Supabase query delays
+      const fetchPromise = supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single()
 
-      if (error) {
-        console.error('Error fetching user profile:', error)
-        // Fallback to minimal profile if profiles table row doesn't exist yet
+      const timeoutPromise = new Promise<{ data: any; error: any }>((resolve) =>
+        setTimeout(() => resolve({ data: null, error: new Error('Timeout') }), 2500)
+      )
+
+      const res = await Promise.race([fetchPromise, timeoutPromise])
+
+      if (res.error || !res.data) {
         return {
           id: userId,
-          full_name: 'User',
+          full_name: userMeta?.full_name || 'User',
           email: email,
-          business_name: '',
-          business_type: 'Other',
+          business_name: userMeta?.business_name || '',
+          business_type: userMeta?.business_type || 'Other',
           created_at: new Date().toISOString(),
         }
       }
-      return data as Profile
+      return res.data as Profile
     } catch (err) {
       console.error('Failed to get user profile details:', err)
-      return null
+      return {
+        id: userId,
+        full_name: userMeta?.full_name || 'User',
+        email: email,
+        business_name: userMeta?.business_name || '',
+        business_type: userMeta?.business_type || 'Other',
+        created_at: new Date().toISOString(),
+      }
     }
   }, [])
 
   useEffect(() => {
     const supabase = createClient()
+    let isMounted = true
 
-    // Get initial session
     const initAuth = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession()
-        if (session?.user) {
-          const profile = await fetchProfile(session.user.id, session.user.email || '')
-          setUser(profile)
-        } else {
+        if (session?.user && isMounted) {
+          const profile = await fetchProfile(session.user.id, session.user.email || '', session.user.user_metadata)
+          if (isMounted) setUser(profile)
+        } else if (isMounted) {
           setUser(null)
         }
       } catch (err) {
         console.error('Auth initialization error:', err)
       } finally {
-        setLoading(false)
+        if (isMounted) setLoading(false)
       }
     }
 
     initAuth()
 
-    // Listen to changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setLoading(true)
       if (session?.user) {
-        const profile = await fetchProfile(session.user.id, session.user.email || '')
-        setUser(profile)
-      } else {
+        const profile = await fetchProfile(session.user.id, session.user.email || '', session.user.user_metadata)
+        if (isMounted) setUser(profile)
+      } else if (isMounted) {
         setUser(null)
       }
-      setLoading(false)
+      if (isMounted) setLoading(false)
     })
 
     return () => {
+      isMounted = false
       subscription.unsubscribe()
     }
   }, [fetchProfile])

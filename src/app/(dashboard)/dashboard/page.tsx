@@ -1,27 +1,42 @@
+import { AIDailyBrief } from '@/components/dashboard/ai-daily-brief'
 import { StatCard } from '@/components/dashboard/stat-card'
 import { RevenueChart } from '@/components/dashboard/revenue-chart'
 import { LeadChart } from '@/components/dashboard/lead-chart'
 import { ActivityFeed } from '@/components/dashboard/activity-feed'
 import { formatINR } from '@/lib/utils'
-import { Users, UserCheck, TrendingUp, IndianRupee, CheckSquare } from 'lucide-react'
 import { createClient } from '@/lib/supabase-server'
 import type { Lead, Customer, Task } from '@/lib/types'
 
 export const revalidate = 0 // Disable cache to fetch live database records on request
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
+  let leads: Lead[] = []
+  let customers: Customer[] = []
+  let tasks: Task[] = []
+  let userName = 'Founder'
 
-  // Parallel data fetching
-  const [leadsRes, customersRes, tasksRes] = await Promise.all([
-    supabase.from('leads').select('*').order('created_at', { ascending: false }),
-    supabase.from('customers').select('*').order('created_at', { ascending: false }),
-    supabase.from('tasks').select('*').order('created_at', { ascending: false }),
-  ])
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
 
-  const leads = (leadsRes.data || []) as Lead[]
-  const customers = (customersRes.data || []) as Customer[]
-  const tasks = (tasksRes.data || []) as Task[]
+    if (user) {
+      const { data: profile } = await supabase.from('profiles').select('full_name').eq('id', user.id).single()
+      if (profile?.full_name) userName = profile.full_name
+    }
+
+    // Parallel data fetching
+    const [leadsRes, customersRes, tasksRes] = await Promise.all([
+      supabase.from('leads').select('*').order('created_at', { ascending: false }),
+      supabase.from('customers').select('*').order('created_at', { ascending: false }),
+      supabase.from('tasks').select('*').order('created_at', { ascending: false }),
+    ])
+
+    leads = (leadsRes?.data || []) as Lead[]
+    customers = (customersRes?.data || []) as Customer[]
+    tasks = (tasksRes?.data || []) as Task[]
+  } catch (err) {
+    console.error('Error fetching dashboard data:', err)
+  }
 
   // Core metrics calculation
   const totalLeads = leads.length
@@ -123,22 +138,17 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground text-sm mt-1">
-          Welcome back! Here&apos;s your live business overview.
-        </p>
-      </div>
+      {/* 1. Today's Executive AI Daily Brief & Health Score */}
+      <AIDailyBrief userName={userName} />
 
-      {/* Stat cards */}
+      {/* 2. Core Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard
           title="Total Leads"
           value={totalLeads.toString()}
           change={`${totalLeads} total records`}
           changeType="neutral"
-          icon={Users}
+          icon="users"
           index={0}
         />
         <StatCard
@@ -146,7 +156,7 @@ export default async function DashboardPage() {
           value={activeCustomers.toString()}
           change={`${activeCustomers} paying clients`}
           changeType="positive"
-          icon={UserCheck}
+          icon="user-check"
           index={1}
         />
         <StatCard
@@ -154,7 +164,7 @@ export default async function DashboardPage() {
           value={`${conversionRate}%`}
           change="Leads closed won"
           changeType="positive"
-          icon={TrendingUp}
+          icon="trending-up"
           index={2}
         />
         <StatCard
@@ -162,7 +172,7 @@ export default async function DashboardPage() {
           value={formatINR(totalRevenue)}
           change="Accumulated generated value"
           changeType="positive"
-          icon={IndianRupee}
+          icon="indian-rupee"
           index={3}
         />
         <StatCard
@@ -170,18 +180,18 @@ export default async function DashboardPage() {
           value={pendingTasks.toString()}
           change={`${pendingTasks} need attention`}
           changeType="neutral"
-          icon={CheckSquare}
+          icon="check-square"
           index={4}
         />
       </div>
 
-      {/* Charts */}
+      {/* 3. Revenue & Lead Analytics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <RevenueChart data={revenueChartData} />
         <LeadChart data={leadChartData} />
       </div>
 
-      {/* Activity feed */}
+      {/* 4. Activity Timeline */}
       <ActivityFeed activities={activities} />
     </div>
   )

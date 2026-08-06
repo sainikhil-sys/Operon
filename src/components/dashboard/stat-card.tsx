@@ -2,42 +2,54 @@
 
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import type { LucideIcon } from 'lucide-react'
+import { Users, UserCheck, TrendUp, CurrencyInr, CheckSquare, Question, type IconProps } from '@phosphor-icons/react'
+
+export type IconName = 'users' | 'user-check' | 'trending-up' | 'indian-rupee' | 'check-square'
+
+const iconMap: Record<string, React.ComponentType<IconProps>> = {
+  'users': Users,
+  'user-check': UserCheck,
+  'trending-up': TrendUp,
+  'indian-rupee': CurrencyInr,
+  'check-square': CheckSquare,
+}
 
 interface StatCardProps {
   title: string
   value: string
   change?: string
   changeType?: 'positive' | 'negative' | 'neutral'
-  icon: LucideIcon
+  icon: IconName | React.ComponentType<IconProps>
   index?: number
 }
 
-export function StatCard({ title, value, change, changeType = 'positive', icon: Icon, index = 0 }: StatCardProps) {
+export function StatCard({ title, value, change, changeType = 'positive', icon, index = 0 }: StatCardProps) {
+  const IconComponent = typeof icon === 'string' ? (iconMap[icon] || Question) : icon
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="rounded-xl border border-border bg-card p-5 hover:shadow-lg hover:shadow-black/5 transition-shadow duration-300"
+      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#131922] p-5 hover:border-[rgba(255,255,255,0.15)] transition-all duration-300 relative overflow-hidden group shadow-sm"
     >
       <div className="flex items-start justify-between">
         <div className="space-y-3">
-          <p className="text-sm text-muted-foreground font-medium">{title}</p>
-          <p className="text-2xl font-bold tracking-tight">{value}</p>
+          <p className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider font-mono">{title}</p>
+          <p className="text-2xl font-bold tracking-tight text-[#F8FAFC] font-mono">{value}</p>
           {change && (
             <p className={cn(
-              "text-xs font-semibold",
-              changeType === 'positive' && 'text-emerald-500',
-              changeType === 'negative' && 'text-red-500',
-              changeType === 'neutral' && 'text-muted-foreground',
+              "text-xs font-semibold font-body",
+              changeType === 'positive' && 'text-[#3FB950]',
+              changeType === 'negative' && 'text-[#D65D5D]',
+              changeType === 'neutral' && 'text-[#94A3B8]',
             )}>
               {change}
             </p>
           )}
         </div>
-        <div className="rounded-lg bg-primary/10 p-2.5">
-          <Icon className="h-5 w-5 text-primary" />
+        <div className="rounded-xl bg-[#1A222D] border border-[rgba(255,255,255,0.06)] p-2.5 text-[#F8FAFC] group-hover:bg-[#4A7C72]/20 group-hover:text-[#4A7C72] transition-colors">
+          <IconComponent size={20} weight="regular" />
         </div>
       </div>
     </motion.div>

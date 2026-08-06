@@ -6,13 +6,12 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { aiResponses } from '@/lib/mock-data'
 import type { ChatMessage } from '@/lib/types'
 import { Send, Bot, User, Sparkles, Loader2 } from 'lucide-react'
 
 const suggestedPrompts = [
   'Analyze my lead pipeline',
-  'Draft a follow-up email for Neha Kapoor',
+  'Draft a follow-up email for my latest lead',
   'Give me sales recommendations',
   'What are my revenue trends?',
 ]
@@ -22,7 +21,7 @@ export default function AIAssistantPage() {
     {
       id: 'welcome',
       role: 'assistant',
-      content: "Hello! I'm your Operon AI Assistant. I can help you with business insights, lead suggestions, follow-up message drafts, and sales recommendations. What would you like to know?",
+      content: "Hello! I'm your Operon AI Assistant, powered by Groq LLaMA 3.3. I have live context of your leads, customers, revenue, and tasks. How can I assist your business today?",
       timestamp: new Date().toISOString(),
     },
   ])
@@ -37,20 +36,9 @@ export default function AIAssistantPage() {
     }
   }, [messages, isTyping])
 
-  const getAIResponse = (userMessage: string): string => {
-    const lower = userMessage.toLowerCase()
-    if (lower.includes('follow') || lower.includes('email') || lower.includes('draft') || lower.includes('message')) {
-      return aiResponses.followup[Math.floor(Math.random() * aiResponses.followup.length)]
-    }
-    if (lower.includes('sale') || lower.includes('revenue') || lower.includes('pipeline') || lower.includes('trend')) {
-      return aiResponses.sales[Math.floor(Math.random() * aiResponses.sales.length)]
-    }
-    return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)]
-  }
-
   const handleSend = async () => {
     const msg = input.trim()
-    if (!msg) return
+    if (!msg || isTyping) return
 
     const userMsg: ChatMessage = {
       id: `user-${Date.now()}`,
@@ -59,22 +47,46 @@ export default function AIAssistantPage() {
       timestamp: new Date().toISOString(),
     }
 
-    setMessages((prev) => [...prev, userMsg])
+    const updatedMessages = [...messages, userMsg]
+    setMessages(updatedMessages)
     setInput('')
     setIsTyping(true)
 
-    // Simulate AI response delay
-    await new Promise((r) => setTimeout(r, 1200 + Math.random() * 800))
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: msg,
+          messages: updatedMessages.map((m) => ({ role: m.role, content: m.content })),
+        }),
+      })
 
-    const aiMsg: ChatMessage = {
-      id: `ai-${Date.now()}`,
-      role: 'assistant',
-      content: getAIResponse(msg),
-      timestamp: new Date().toISOString(),
+      const data = await res.json()
+      const aiResponseText = data.response || "I couldn't process that request right now."
+
+      const aiMsg: ChatMessage = {
+        id: `ai-${Date.now()}`,
+        role: 'assistant',
+        content: aiResponseText,
+        timestamp: new Date().toISOString(),
+      }
+
+      setMessages((prev) => [...prev, aiMsg])
+    } catch (err) {
+      console.error('AI chat error:', err)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `ai-err-${Date.now()}`,
+          role: 'assistant',
+          content: 'Sorry, I encountered an error connecting to Groq AI service. Please try again.',
+          timestamp: new Date().toISOString(),
+        },
+      ])
+    } finally {
+      setIsTyping(false)
     }
-
-    setIsTyping(false)
-    setMessages((prev) => [...prev, aiMsg])
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -93,14 +105,14 @@ export default function AIAssistantPage() {
         </div>
         <div>
           <h1 className="text-xl font-bold tracking-tight">AI Assistant</h1>
-          <p className="text-xs text-muted-foreground">Powered by Operon Intelligence</p>
+          <p className="text-xs text-muted-foreground">Powered by Groq LLaMA 3.3 Intelligence</p>
         </div>
       </div>
 
       {/* Messages */}
       <ScrollArea className="flex-1 pr-4" ref={scrollRef}>
         <div className="space-y-4 pb-4">
-          {messages.map((msg, i) => (
+          {messages.map((msg) => (
             <motion.div
               key={msg.id}
               initial={{ opacity: 0, y: 10 }}
@@ -148,7 +160,7 @@ export default function AIAssistantPage() {
               </Avatar>
               <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-1.5">
                 <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">Thinking...</span>
+                <span className="text-sm text-muted-foreground">Thinking with Groq AI...</span>
               </div>
             </motion.div>
           )}
@@ -193,7 +205,7 @@ export default function AIAssistantPage() {
           </Button>
         </div>
         <p className="text-[10px] text-muted-foreground mt-2 text-center">
-          AI responses are placeholder-based. Connect an AI API for real intelligence.
+          Connected to Groq LLaMA 3.3. Uses real live pipeline and customer data.
         </p>
       </div>
     </div>

@@ -29,31 +29,31 @@ export function LeadChart({ data }: LeadChartProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.35 }}
-      className="rounded-xl border border-border bg-card p-5"
+      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[#131922] p-5 shadow-sm"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="font-semibold">Lead Pipeline</h3>
-          <p className="text-sm text-muted-foreground">New vs Won vs Lost trends</p>
+          <h3 className="font-bold text-[#F8FAFC] font-body uppercase text-sm tracking-wider">Lead Pipeline</h3>
+          <p className="text-xs text-[#94A3B8] font-mono mt-0.5">New vs Closed-Won vs Lost telemetry</p>
         </div>
-        <div className="flex items-center gap-4 text-xs">
+        <div className="flex items-center gap-4 text-xs font-mono">
           <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-blue-500" />
-            <span className="text-muted-foreground">New</span>
+            <div className="h-2.5 w-2.5 rounded-full bg-[#4A7C72]" />
+            <span className="text-[#94A3B8]">New</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            <span className="text-muted-foreground">Won</span>
+            <div className="h-2.5 w-2.5 rounded-full bg-[#3FB950]" />
+            <span className="text-[#94A3B8]">Won</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-red-500" />
-            <span className="text-muted-foreground">Lost</span>
+            <div className="h-2.5 w-2.5 rounded-full bg-[#D65D5D]" />
+            <span className="text-[#94A3B8]">Lost</span>
           </div>
         </div>
       </div>
 
       {/* Stacked bar chart */}
-      <div className="flex items-end gap-3 h-44">
+      <div className="flex items-end gap-3 h-44 pt-4">
         {chartData.map((d, i) => {
           const total = d.new + d.won + d.lost
           const totalHeight = total > 0 ? (total / maxVal) * 100 : 0
@@ -63,7 +63,7 @@ export function LeadChart({ data }: LeadChartProps) {
 
           return (
             <div key={d.month} className="flex-1 flex flex-col items-center gap-2">
-              <span className="text-[10px] text-muted-foreground font-medium">{total}</span>
+              <span className="text-[10px] text-[#94A3B8] font-mono">{total}</span>
               <motion.div
                 initial={{ height: 0 }}
                 animate={{ height: `${totalHeight}%` }}
@@ -71,19 +71,19 @@ export function LeadChart({ data }: LeadChartProps) {
                 className="w-full rounded-t-md overflow-hidden flex flex-col-reverse min-h-[4px]"
               >
                 <div
-                  className="bg-emerald-500/80"
+                  className="bg-[#3FB950]/80"
                   style={{ height: `${wonPct}%` }}
                 />
                 <div
-                  className="bg-blue-500/80"
+                  className="bg-[#4A7C72]/80"
                   style={{ height: `${newPct}%` }}
                 />
                 <div
-                  className="bg-red-500/80"
+                  className="bg-[#D65D5D]/80"
                   style={{ height: `${lostPct}%` }}
                 />
               </motion.div>
-              <span className="text-xs text-muted-foreground font-medium">{d.month}</span>
+              <span className="text-xs text-[#94A3B8] font-mono">{d.month}</span>
             </div>
           )
         })}

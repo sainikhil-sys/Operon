@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { toast } from 'sonner'
-import { Loader2, Eye, EyeOff } from 'lucide-react'
+import { GoogleLogo, SlackLogo, Spinner, Eye, EyeClosed } from '@phosphor-icons/react'
 import { createClient } from '@/lib/supabase'
 
 const businessTypes = [
@@ -28,6 +28,7 @@ const businessTypes = [
 export default function SignupPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [oauthLoading, setOauthLoading] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     fullName: '',
@@ -36,6 +37,34 @@ export default function SignupPage() {
     email: '',
     password: '',
   })
+
+  const handleOAuthSignIn = async (provider: 'google' | 'slack_oidc') => {
+    const { isSupabaseConfigured } = await import('@/lib/supabase')
+    if (!isSupabaseConfigured()) {
+      toast.error('Supabase credentials missing. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local.')
+      return
+    }
+
+    setOauthLoading(provider)
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+
+      if (error) {
+        toast.error(error.message)
+      }
+    } catch (err) {
+      console.error('Google OAuth error:', err)
+      toast.error('Failed to initiate Google authentication.')
+    } finally {
+      setOauthLoading(null)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,9 +81,7 @@ export default function SignupPage() {
 
     const { isSupabaseConfigured } = await import('@/lib/supabase')
     if (!isSupabaseConfigured()) {
-      toast.error('Supabase is not configured yet. Please replace the placeholder credentials in your .env.local file with your real Supabase keys.', {
-        duration: 8000
-      })
+      toast.error('Supabase is not configured yet in .env.local.')
       return
     }
 
@@ -62,7 +89,7 @@ export default function SignupPage() {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
@@ -79,8 +106,33 @@ export default function SignupPage() {
         return
       }
 
-      toast.success('Account created! Check your email to confirm.')
-      router.push('/auth/login')
+      let activeSession = data.session
+
+      if (!activeSession) {
+        const { data: signInData } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        })
+        activeSession = signInData.session
+      }
+
+      if (activeSession?.user) {
+        try {
+          await supabase.from('profiles').upsert({
+            id: activeSession.user.id,
+            full_name: formData.fullName,
+            email: formData.email,
+            business_name: formData.businessName,
+            business_type: formData.businessType || 'Other',
+          })
+        } catch {}
+
+        toast.success('Account created successfully! Opening your dashboard...')
+        window.location.href = '/dashboard'
+      } else {
+        toast.info('Account created! Please check your email to confirm before signing in.')
+        router.push('/auth/login')
+      }
     } catch (err) {
       console.error('Signup error:', err)
       toast.error('Something went wrong. Please try again.')
@@ -92,13 +144,46 @@ export default function SignupPage() {
   return (
     <Card className="border-border/50 shadow-2xl shadow-black/10">
       <CardHeader className="text-center pb-2">
-        <CardTitle className="text-2xl font-bold">Create your account</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl font-bold font-heading">Create your account</CardTitle>
+        <CardDescription className="font-body">
           Start growing your business with Operon
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <CardContent className="space-y-4">
+        {/* Social Google & Slack Authentication Buttons */}
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleOAuthSignIn('google')}
+            disabled={!!oauthLoading || loading}
+            className="w-full h-10 border-border hover:bg-card/80 font-body text-xs gap-2"
+          >
+            {oauthLoading === 'google' ? <Spinner size={16} className="animate-spin" /> : <GoogleLogo size={18} weight="bold" className="text-red-500" />}
+            Google
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleOAuthSignIn('slack_oidc')}
+            disabled={!!oauthLoading || loading}
+            className="w-full h-10 border-border hover:bg-card/80 font-body text-xs gap-2"
+          >
+            {oauthLoading === 'slack_oidc' ? <Spinner size={16} className="animate-spin" /> : <SlackLogo size={18} weight="bold" className="text-emerald-400" />}
+            Slack
+          </Button>
+        </div>
+
+        <div className="relative flex items-center justify-center my-2">
+          <div className="border-t border-border w-full" />
+          <span className="bg-card px-2 text-[10px] uppercase font-mono text-muted-foreground shrink-0">
+            or continue with email
+          </span>
+          <div className="border-t border-border w-full" />
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4 font-body">
           <div className="space-y-2">
             <Label htmlFor="signup-fullname">Full Name *</Label>
             <Input
@@ -181,21 +266,21 @@ export default function SignupPage() {
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <EyeClosed size={16} />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <Eye size={16} />
                 )}
               </button>
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button type="submit" className="w-full" disabled={loading || !!oauthLoading}>
+            {loading && <Spinner size={16} className="mr-2 animate-spin" />}
             Create Account
           </Button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-muted-foreground">
+        <div className="mt-6 text-center text-sm text-muted-foreground font-body">
           Already have an account?{' '}
           <Link
             href="/auth/login"

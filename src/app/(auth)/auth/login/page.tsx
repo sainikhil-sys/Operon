@@ -8,15 +8,44 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
-import { Loader2, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeClosed, GoogleLogo, SlackLogo, Spinner } from '@phosphor-icons/react'
 import { createClient } from '@/lib/supabase'
 
 export default function LoginPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [oauthLoading, setOauthLoading] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const handleOAuthSignIn = async (provider: 'google' | 'slack_oidc') => {
+    const { isSupabaseConfigured } = await import('@/lib/supabase')
+    if (!isSupabaseConfigured()) {
+      toast.error('Supabase is not configured yet in .env.local.', { duration: 5000 })
+      return
+    }
+
+    setOauthLoading(provider)
+    try {
+      const supabase = createClient()
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: provider as any,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+
+      if (error) {
+        toast.error(error.message)
+      }
+    } catch (err) {
+      console.error('OAuth error:', err)
+      toast.error('Failed to initiate social login.')
+    } finally {
+      setOauthLoading(null)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,12 +91,45 @@ export default function LoginPage() {
   return (
     <Card className="border-border/50 shadow-2xl shadow-black/10">
       <CardHeader className="text-center pb-2">
-        <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl font-bold font-heading">Welcome back</CardTitle>
+        <CardDescription className="font-body">
           Sign in to your Operon account
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
+        {/* Social OAuth Login Buttons */}
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleOAuthSignIn('google')}
+            disabled={!!oauthLoading || loading}
+            className="w-full h-10 border-border hover:bg-card/80 font-body text-xs gap-2"
+          >
+            {oauthLoading === 'google' ? <Spinner size={16} className="animate-spin" /> : <GoogleLogo size={18} weight="bold" className="text-red-500" />}
+            Google
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleOAuthSignIn('slack_oidc')}
+            disabled={!!oauthLoading || loading}
+            className="w-full h-10 border-border hover:bg-card/80 font-body text-xs gap-2"
+          >
+            {oauthLoading === 'slack_oidc' ? <Spinner size={16} className="animate-spin" /> : <SlackLogo size={18} weight="bold" className="text-emerald-400" />}
+            Slack
+          </Button>
+        </div>
+
+        <div className="relative flex items-center justify-center my-2">
+          <div className="border-t border-border w-full" />
+          <span className="bg-card px-2 text-[10px] uppercase font-mono text-muted-foreground shrink-0">
+            or continue with email
+          </span>
+          <div className="border-t border-border w-full" />
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="login-email">Email</Label>
@@ -86,7 +148,7 @@ export default function LoginPage() {
               <Label htmlFor="login-password">Password</Label>
               <Link
                 href="/auth/forgot-password"
-                className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                className="text-xs text-muted-foreground hover:text-primary transition-colors font-body"
               >
                 Forgot password?
               </Link>
@@ -106,21 +168,21 @@ export default function LoginPage() {
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <EyeClosed size={16} />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <Eye size={16} />
                 )}
               </button>
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button type="submit" className="w-full" disabled={loading || !!oauthLoading}>
+            {loading && <Spinner size={16} className="mr-2 animate-spin" />}
             Sign In
           </Button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-muted-foreground">
+        <div className="mt-6 text-center text-sm text-muted-foreground font-body">
           Don&apos;t have an account?{' '}
           <Link
             href="/auth/signup"
