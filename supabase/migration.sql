@@ -970,3 +970,166 @@ INSERT INTO storage.buckets (id, name, public) VALUES ('organization-logos', 'or
 INSERT INTO storage.buckets (id, name, public) VALUES ('knowledge-files', 'knowledge-files', false) ON CONFLICT (id) DO NOTHING;
 INSERT INTO storage.buckets (id, name, public) VALUES ('attachments', 'attachments', false) ON CONFLICT (id) DO NOTHING;
 INSERT INTO storage.buckets (id, name, public) VALUES ('exports', 'exports', false) ON CONFLICT (id) DO NOTHING;
+
+-- ============================================================================
+-- 22. ENTERPRISE OPERATING SYSTEM EXTENSIONS (DEPARTMENTS, TEAMS, JOIN REQUESTS, HR & FINANCE)
+-- ============================================================================
+
+-- Departments Table
+CREATE TABLE IF NOT EXISTS public.departments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  code TEXT,
+  manager_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  budget NUMERIC DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Teams Table
+CREATE TABLE IF NOT EXISTS public.teams (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  department_id UUID REFERENCES public.departments(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  lead_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Organization Join Requests
+CREATE TABLE IF NOT EXISTS public.join_requests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  department_id UUID REFERENCES public.departments(id) ON DELETE SET NULL,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  role_requested TEXT DEFAULT 'member',
+  rejection_reason TEXT,
+  reviewed_by UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  reviewed_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE(org_id, user_id)
+);
+
+-- Attendance Table
+CREATE TABLE IF NOT EXISTS public.attendance (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  date DATE NOT NULL DEFAULT CURRENT_DATE,
+  clock_in TIMESTAMPTZ,
+  clock_out TIMESTAMPTZ,
+  status TEXT NOT NULL DEFAULT 'present' CHECK (status IN ('present', 'absent', 'late', 'half_day', 'on_leave')),
+  notes TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE(org_id, user_id, date)
+);
+
+-- Leave Requests Table
+CREATE TABLE IF NOT EXISTS public.leave_requests (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  leave_type TEXT NOT NULL DEFAULT 'annual' CHECK (leave_type IN ('annual', 'sick', 'casual', 'unpaid', 'maternity', 'paternity')),
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  reason TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  approved_by UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Expenses Table
+CREATE TABLE IF NOT EXISTS public.expenses (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  category TEXT NOT NULL DEFAULT 'General',
+  amount NUMERIC NOT NULL DEFAULT 0,
+  currency TEXT DEFAULT 'INR',
+  description TEXT NOT NULL,
+  receipt_url TEXT,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected', 'reimbursed')),
+  approved_by UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Assets Table
+CREATE TABLE IF NOT EXISTS public.assets (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id UUID NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'Hardware',
+  serial_number TEXT,
+  assigned_to UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  status TEXT NOT NULL DEFAULT 'available' CHECK (status IN ('available', 'assigned', 'in_repair', 'retired')),
+  purchase_date DATE,
+  cost NUMERIC DEFAULT 0,
+  notes TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Enable RLS
+ALTER TABLE public.departments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.teams ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.join_requests ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.attendance ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.leave_requests ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.expenses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.assets ENABLE ROW LEVEL SECURITY;
+
+-- RLS Policies
+DROP POLICY IF EXISTS "Departments org access" ON public.departments;
+CREATE POLICY "Departments org access" ON public.departments FOR ALL USING (
+  EXISTS (SELECT 1 FROM public.organization_members WHERE org_id = public.departments.org_id AND user_id = auth.uid())
+);
+
+DROP POLICY IF EXISTS "Teams org access" ON public.teams;
+CREATE POLICY "Teams org access" ON public.teams FOR ALL USING (
+  EXISTS (SELECT 1 FROM public.organization_members WHERE org_id = public.teams.org_id AND user_id = auth.uid())
+);
+
+DROP POLICY IF EXISTS "Join requests user policy" ON public.join_requests;
+CREATE POLICY "Join requests user policy" ON public.join_requests FOR ALL USING (
+  auth.uid() = user_id OR EXISTS (
+    SELECT 1 FROM public.organization_members 
+    WHERE org_id = public.join_requests.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+  )
+);
+
+DROP POLICY IF EXISTS "Attendance user policy" ON public.attendance;
+CREATE POLICY "Attendance user policy" ON public.attendance FOR ALL USING (
+  auth.uid() = user_id OR EXISTS (
+    SELECT 1 FROM public.organization_members 
+    WHERE org_id = public.attendance.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+  )
+);
+
+DROP POLICY IF EXISTS "Leave requests user policy" ON public.leave_requests;
+CREATE POLICY "Leave requests user policy" ON public.leave_requests FOR ALL USING (
+  auth.uid() = user_id OR EXISTS (
+    SELECT 1 FROM public.organization_members 
+    WHERE org_id = public.leave_requests.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+  )
+);
+
+DROP POLICY IF EXISTS "Expenses user policy" ON public.expenses;
+CREATE POLICY "Expenses user policy" ON public.expenses FOR ALL USING (
+  auth.uid() = user_id OR EXISTS (
+    SELECT 1 FROM public.organization_members 
+    WHERE org_id = public.expenses.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+  )
+);
+
+DROP POLICY IF EXISTS "Assets org access" ON public.assets;
+CREATE POLICY "Assets org access" ON public.assets FOR ALL USING (
+  EXISTS (SELECT 1 FROM public.organization_members WHERE org_id = public.assets.org_id AND user_id = auth.uid())
+);
+

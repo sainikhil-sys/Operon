@@ -24,19 +24,26 @@ export async function POST(request: Request) {
     let contextText = ''
 
     if (user) {
-      const [leadsRes, customersRes, tasksRes, profileRes] = await Promise.all([
+      const [leadsRes, customersRes, tasksRes, profileRes, deptsRes, expensesRes, docsRes] = await Promise.all([
         supabase.from('leads').select('*').eq('user_id', user.id),
         supabase.from('customers').select('*').eq('user_id', user.id),
         supabase.from('tasks').select('*').eq('user_id', user.id),
         supabase.from('profiles').select('*').eq('id', user.id).single(),
+        supabase.from('departments').select('*'),
+        supabase.from('expenses').select('*'),
+        supabase.from('knowledge_documents').select('title, category, snippet').limit(5),
       ])
 
       const leads = leadsRes.data || []
       const customers = customersRes.data || []
       const tasks = tasksRes.data || []
       const profile = profileRes.data || {}
+      const depts = deptsRes.data || []
+      const expenses = expensesRes.data || []
+      const docs = docsRes.data || []
 
       const totalRevenue = customers.reduce((sum, c) => sum + Number(c.revenue_generated || 0), 0)
+      const totalExpenses = expenses.reduce((sum, e) => sum + Number(e.amount || 0), 0)
       const wonLeads = leads.filter(l => l.status === 'won').length
       const pendingTasks = tasks.filter(t => t.status !== 'completed')
 
@@ -50,8 +57,11 @@ Current Live Database Context:
 - Total Leads: ${leads.length} (Won: ${wonLeads}, New: ${leads.filter(l => l.status === 'new').length}, Contacted: ${leads.filter(l => l.status === 'contacted').length})
 - Active Customers: ${customers.length}
 - Total Revenue Generated: ₹${totalRevenue.toLocaleString('en-IN')}
+- Total Operational Expenses: ₹${totalExpenses.toLocaleString('en-IN')}
+- Active Departments: ${depts.map(d => d.name).join(', ') || 'None'}
 - Pending Tasks: ${pendingTasks.length}
 
+Knowledge Base Documents: ${docs.map(d => `${d.title} [${d.category}]`).join(', ') || 'None'}
 Recent Leads: ${leads.slice(0, 5).map(l => `${l.name} (${l.status}, ₹${l.value})`).join(', ') || 'None'}
 Recent Customers: ${customers.slice(0, 5).map(c => `${c.name} - ${c.company} (₹${c.revenue_generated})`).join(', ') || 'None'}
 Pending Tasks: ${pendingTasks.slice(0, 5).map(t => `${t.title} [${t.priority}]`).join(', ') || 'None'}
