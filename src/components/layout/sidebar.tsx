@@ -22,6 +22,10 @@ import {
   Brain,
   CaretLeft,
   Command,
+  ShieldCheck,
+  Briefcase,
+  UsersThree,
+  User,
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -30,9 +34,17 @@ import { OperonLogo } from '@/components/brand/operon-logo'
 
 const missionItems = [
   { label: 'Mission Control', href: '/dashboard', icon: Gauge },
+  { label: 'Approval Center', href: '/approvals', icon: ShieldCheck },
   { label: 'Inbox', href: '/inbox', icon: Tray },
   { label: 'Tasks & Ops', href: '/tasks', icon: CheckSquare },
   { label: 'Calendar', href: '/calendar', icon: CalendarBlank },
+]
+
+const enterpriseScopes = [
+  { label: 'Department Manager', href: '/manager', icon: Briefcase },
+  { label: 'Team Lead', href: '/team-lead', icon: UsersThree },
+  { label: 'My Workspace', href: '/employee', icon: User },
+  { label: 'Super Admin', href: '/admin', icon: ShieldCheck },
 ]
 
 const businessItems = [
@@ -157,9 +169,11 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
         </button>
       </div>
 
-      {/* 4 Categorized Navigation Sections */}
+      {/* Categorized Navigation Sections */}
       <nav className="flex-1 py-3 px-2 space-y-3 overflow-y-auto">
         {renderNavGroup('Mission', missionItems)}
+        <Separator className="my-1.5 bg-[rgba(255,255,255,0.05)]" />
+        {renderNavGroup('Scopes', enterpriseScopes)}
         <Separator className="my-1.5 bg-[rgba(255,255,255,0.05)]" />
         {renderNavGroup('Business', businessItems)}
         <Separator className="my-1.5 bg-[rgba(255,255,255,0.05)]" />
