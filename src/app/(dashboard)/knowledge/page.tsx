@@ -204,7 +204,7 @@ export default function KnowledgePage() {
             </div>
             <div className="space-y-1">
               <label className="font-semibold text-muted-foreground">Category</label>
-              <Select value={category} onValueChange={setCategory}>
+              <Select value={category} onValueChange={(val) => val && setCategory(val)}>
                 <SelectTrigger className="h-9 text-xs">
                   <SelectValue />
                 </SelectTrigger>
