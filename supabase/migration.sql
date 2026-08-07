@@ -1108,7 +1108,7 @@ DROP POLICY IF EXISTS "Attendance user policy" ON public.attendance;
 CREATE POLICY "Attendance user policy" ON public.attendance FOR ALL USING (
   auth.uid() = user_id OR EXISTS (
     SELECT 1 FROM public.organization_members 
-    WHERE org_id = public.attendance.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+    WHERE org_id = public.attendance.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager', 'lead')
   )
 );
 
@@ -1116,7 +1116,7 @@ DROP POLICY IF EXISTS "Leave requests user policy" ON public.leave_requests;
 CREATE POLICY "Leave requests user policy" ON public.leave_requests FOR ALL USING (
   auth.uid() = user_id OR EXISTS (
     SELECT 1 FROM public.organization_members 
-    WHERE org_id = public.leave_requests.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+    WHERE org_id = public.leave_requests.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager', 'lead')
   )
 );
 
@@ -1124,7 +1124,7 @@ DROP POLICY IF EXISTS "Expenses user policy" ON public.expenses;
 CREATE POLICY "Expenses user policy" ON public.expenses FOR ALL USING (
   auth.uid() = user_id OR EXISTS (
     SELECT 1 FROM public.organization_members 
-    WHERE org_id = public.expenses.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager')
+    WHERE org_id = public.expenses.org_id AND user_id = auth.uid() AND role IN ('owner', 'admin', 'manager', 'lead')
   )
 );
 
@@ -1132,4 +1132,56 @@ DROP POLICY IF EXISTS "Assets org access" ON public.assets;
 CREATE POLICY "Assets org access" ON public.assets FOR ALL USING (
   EXISTS (SELECT 1 FROM public.organization_members WHERE org_id = public.assets.org_id AND user_id = auth.uid())
 );
+
+-- ============================================================================
+-- 23. AUTOMATIC PROFILE ORGANIZATION REPAIR & ATTENDANCE ENFORCEMENT
+-- ============================================================================
+
+-- Function to repair profiles missing org_id
+CREATE OR REPLACE FUNCTION public.repair_unassigned_profiles()
+RETURNS INT AS $$
+DECLARE
+  v_count INT := 0;
+  r RECORD;
+  v_new_org_id UUID;
+BEGIN
+  FOR r IN SELECT * FROM public.profiles WHERE org_id IS NULL LOOP
+    -- Check if user owns an org
+    SELECT id INTO v_new_org_id FROM public.organizations WHERE owner_id = r.id LIMIT 1;
+    
+    -- If no org owned, check organization_members
+    IF v_new_org_id IS NULL THEN
+      SELECT org_id INTO v_new_org_id FROM public.organization_members WHERE user_id = r.id LIMIT 1;
+    END IF;
+    
+    -- If still no org, create default organization for employee
+    IF v_new_org_id IS NULL THEN
+      INSERT INTO public.organizations (owner_id, name, slug)
+      VALUES (
+        r.id,
+        COALESCE(r.business_name, r.full_name || '''s Organization'),
+        LOWER(REGEXP_REPLACE('org-' || SUBSTRING(r.id::text, 1, 8), '[^a-zA-Z0-9]', '-', 'g'))
+      )
+      ON CONFLICT DO NOTHING
+      RETURNING id INTO v_new_org_id;
+    END IF;
+    
+    IF v_new_org_id IS NOT NULL THEN
+      UPDATE public.profiles SET org_id = v_new_org_id WHERE id = r.id;
+      
+      INSERT INTO public.organization_members (org_id, user_id, role)
+      VALUES (v_new_org_id, r.id, COALESCE(r.role, 'member'))
+      ON CONFLICT (org_id, user_id) DO NOTHING;
+      
+      v_count := v_count + 1;
+    END IF;
+  END LOOP;
+  
+  RETURN v_count;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+-- Execute repair immediately
+SELECT public.repair_unassigned_profiles();
+
 

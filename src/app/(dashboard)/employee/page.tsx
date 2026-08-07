@@ -68,16 +68,12 @@ export default function EmployeePage() {
         .order('created_at', { ascending: false })
       if (taskData) setMyTasks(taskData as Task[])
 
-      // Fetch Today's Attendance
-      const todayStr = new Date().toISOString().split('T')[0]
-      const { data: attData } = await supabase
-        .from('attendance')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('date', todayStr)
-        .maybeSingle()
-
-      if (attData) setAttendance(attData as AttendanceRecord)
+      // Fetch Today's Attendance via Backend API
+      const res = await fetch('/api/attendance/today')
+      if (res.ok) {
+        const json = await res.json()
+        if (json.attendance) setAttendance(json.attendance as AttendanceRecord)
+      }
 
       // Fetch My Leaves
       const { data: leaveData } = await supabase
@@ -100,51 +96,37 @@ export default function EmployeePage() {
 
   const handleClockIn = async () => {
     try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('org_id')
-        .eq('id', user?.id || '')
-        .single()
+      const res = await fetch('/api/attendance/clock-in', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
 
-      const todayStr = new Date().toISOString().split('T')[0]
-      const nowIso = new Date().toISOString()
+      const json = await res.json()
+      if (!res.ok) {
+        throw new Error(json.error || 'Clock in failed')
+      }
 
-      const { data, error } = await supabase.from('attendance').upsert({
-        user_id: user?.id,
-        org_id: profile?.org_id,
-        date: todayStr,
-        clock_in: nowIso,
-        status: 'present'
-      }).select().single()
-
-      if (error) throw error
-
-      toast.success('Clocked In successfully!')
-      setAttendance(data as AttendanceRecord)
+      toast.success(json.message || 'Clocked In successfully!')
+      if (json.data) setAttendance(json.data as AttendanceRecord)
     } catch (err: any) {
       toast.error(err.message || 'Clock in failed')
     }
   }
 
   const handleClockOut = async () => {
-    if (!attendance) return
     try {
-      const supabase = createClient()
-      const nowIso = new Date().toISOString()
+      const res = await fetch('/api/attendance/clock-out', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
 
-      const { data, error } = await supabase
-        .from('attendance')
-        .update({ clock_out: nowIso })
-        .eq('id', attendance.id)
-        .select()
-        .single()
+      const json = await res.json()
+      if (!res.ok) {
+        throw new Error(json.error || 'Clock out failed')
+      }
 
-      if (error) throw error
-
-      toast.success('Clocked Out successfully!')
-      setAttendance(data as AttendanceRecord)
+      toast.success(json.message || 'Clocked Out successfully!')
+      if (json.data) setAttendance(json.data as AttendanceRecord)
     } catch (err: any) {
       toast.error(err.message || 'Clock out failed')
     }
