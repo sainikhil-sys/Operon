@@ -1144,8 +1144,11 @@ DECLARE
   v_count INT := 0;
   r RECORD;
   v_new_org_id UUID;
+  v_user_role TEXT;
 BEGIN
-  FOR r IN SELECT * FROM public.profiles WHERE org_id IS NULL LOOP
+  FOR r IN SELECT id, full_name, email, business_name, role FROM public.profiles WHERE org_id IS NULL LOOP
+    v_user_role := COALESCE(r.role, 'member');
+
     -- Check if user owns an org
     SELECT id INTO v_new_org_id FROM public.organizations WHERE owner_id = r.id LIMIT 1;
     
@@ -1159,7 +1162,7 @@ BEGIN
       INSERT INTO public.organizations (owner_id, name, slug)
       VALUES (
         r.id,
-        COALESCE(r.business_name, r.full_name || '''s Organization'),
+        COALESCE(NULLIF(r.business_name, ''), r.full_name || '''s Organization'),
         LOWER(REGEXP_REPLACE('org-' || SUBSTRING(r.id::text, 1, 8), '[^a-zA-Z0-9]', '-', 'g'))
       )
       ON CONFLICT DO NOTHING
@@ -1170,7 +1173,7 @@ BEGIN
       UPDATE public.profiles SET org_id = v_new_org_id WHERE id = r.id;
       
       INSERT INTO public.organization_members (org_id, user_id, role)
-      VALUES (v_new_org_id, r.id, COALESCE(r.role, 'member'))
+      VALUES (v_new_org_id, r.id, v_user_role)
       ON CONFLICT (org_id, user_id) DO NOTHING;
       
       v_count := v_count + 1;

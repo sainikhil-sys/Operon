@@ -20,7 +20,7 @@ export default async function DashboardPage() {
     const { data: { user } } = await supabase.auth.getUser()
 
     if (user) {
-      const { data: profile } = await supabase.from('profiles').select('full_name').eq('id', user.id).single()
+      const { data: profile } = await supabase.from('profiles').select('full_name, role').eq('id', user.id).single()
       if (profile?.full_name) userName = profile.full_name
     }
 

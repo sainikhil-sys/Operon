@@ -2,6 +2,15 @@
 
 ## Status: Complete Production Build & Live Deployment ✅
 
+## Current Status & Completed Modules
+
+- **Attendance Clock-In System Repair**:
+  - Rewrote clock-in flow to derive `org_id` exclusively from authenticated session on the backend.
+  - Implemented Next.js App Router API handlers (`/api/attendance/clock-in`, `/api/attendance/clock-out`, `/api/attendance/today`, `/api/attendance/history`).
+  - Added Postgres profile repair function `repair_unassigned_profiles()` to fix profiles missing `org_id`.
+  - Added strict backend validations (active employee check, organization existence check, duplicate clock-in check for today).
+  - Updated attendance RLS policies supporting Owner, Admin, Manager, Team Lead, and record owner access.
+
 ### Completed Phases & Features
 - [x] **Phase 0 — Infrastructure & Server Deployment**:
   - Live production deployment on Azure VM (`20.244.7.58`) under PM2 process `operon` (Port 3001).
