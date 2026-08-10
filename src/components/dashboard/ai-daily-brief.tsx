@@ -89,6 +89,7 @@ export function AIDailyBrief({ userName }: { userName: string }) {
             size="icon"
             onClick={fetchBrief}
             disabled={loading}
+            aria-label="Refresh telemetry"
             className="h-9 w-9 border-[rgba(255,255,255,0.06)] hover:bg-[#111111] text-[#FFFFFF]"
             title="Refresh Telemetry"
           >
