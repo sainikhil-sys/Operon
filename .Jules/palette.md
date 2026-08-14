@@ -1,0 +1,3 @@
+## 2024-05-18 - Icon-Only Buttons Missing Accessible Names
+**Learning:** Found multiple instances where icon-only buttons (`<button>` or `<Button size="icon">`) were used without `aria-label` across the dashboard and authentication routes, specifically password visibility toggles, chat send buttons, and generic action icons like edit/delete. These elements are inaccessible to screen readers without standard naming conventions.
+**Action:** When working on new components or refactoring, proactively identify all clickable elements containing only icons or SVGs, ensuring an appropriate `aria-label` is applied directly to the button container.

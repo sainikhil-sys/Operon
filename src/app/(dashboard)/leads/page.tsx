@@ -156,12 +156,14 @@ export default function LeadsPage() {
           <button
             onClick={() => setView('table')}
             className={`px-3 py-2 text-sm ${view === 'table' ? 'bg-accent text-foreground' : 'text-muted-foreground hover:text-foreground'} transition-colors`}
+            aria-label="Table view"
           >
             <List className="h-4 w-4" />
           </button>
           <button
             onClick={() => setView('kanban')}
             className={`px-3 py-2 text-sm ${view === 'kanban' ? 'bg-accent text-foreground' : 'text-muted-foreground hover:text-foreground'} transition-colors`}
+            aria-label="Kanban view"
           >
             <LayoutGrid className="h-4 w-4" />
           </button>
