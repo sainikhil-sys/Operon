@@ -15,6 +15,7 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-[rgba(255,255,255,0.06)] bg-[#000000]/90 backdrop-blur-md px-4 lg:px-6">
       {/* Mobile menu button */}
       <Button
+        aria-label="Open mobile menu"
         variant="ghost"
         size="icon"
         className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"

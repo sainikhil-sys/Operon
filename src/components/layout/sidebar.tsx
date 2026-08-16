@@ -137,6 +137,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
         </Link>
         {!collapsed && (
           <Button
+            aria-label="Collapse sidebar"
             variant="ghost"
             size="icon"
             className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
