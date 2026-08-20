@@ -1,0 +1,3 @@
+## 2024-05-24 - Tooltip Composition with Base UI
+**Learning:** The project's UI components, while resembling shadcn/ui, are built on `@base-ui/react` rather than Radix UI. Radix UI uses `asChild` for composition, but `@base-ui/react` uses the `render={<Component>...</Component>}` prop pattern for elements like `TooltipTrigger`.
+**Action:** When composing interactive components (e.g., adding tooltips around buttons), verify the underlying primitive library in `package.json` or by reading the component code. If it's `@base-ui/react`, use the `render` prop to avoid nested DOM elements and TypeScript errors.
