@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility Labels on Layout Controls
+**Learning:** Found that core layout controls (sidebar toggle, mobile menu, notifications) lacked ARIA labels, creating significant barriers for screen reader users on high-traffic areas of the application. The usage of custom icon-only components needs explicit accessibility attributes to maintain compliance and usability.
+**Action:** When working on new navigational or layout components containing icon-only buttons, prioritize adding `aria-label` attributes to ensure they are accessible.
