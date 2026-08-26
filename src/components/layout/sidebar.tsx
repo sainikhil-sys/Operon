@@ -31,6 +31,7 @@ import { Button } from '@/components/ui/button'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Separator } from '@/components/ui/separator'
 import { OperonLogo } from '@/components/brand/operon-logo'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 const missionItems = [
   { label: 'Mission Control', href: '/dashboard', icon: Gauge },
@@ -136,14 +137,22 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
           )}
         </Link>
         {!collapsed && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
-            onClick={onToggleCollapse}
-          >
-            <CaretLeft size={16} />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
+                  onClick={onToggleCollapse}
+                  aria-label="Collapse sidebar"
+                >
+                  <CaretLeft size={16} />
+                </Button>
+              }
+            />
+            <TooltipContent side="right">Collapse sidebar</TooltipContent>
+          </Tooltip>
         )}
       </div>
 
