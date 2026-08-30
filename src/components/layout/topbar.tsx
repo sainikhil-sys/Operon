@@ -19,6 +19,7 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
         size="icon"
         className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"
         onClick={onMenuClick}
+        aria-label="Open menu"
       >
         <List size={20} />
       </Button>
