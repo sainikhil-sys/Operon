@@ -91,6 +91,7 @@ export function AIDailyBrief({ userName }: { userName: string }) {
             disabled={loading}
             className="h-9 w-9 border-[rgba(255,255,255,0.06)] hover:bg-[#111111] text-[#FFFFFF]"
             title="Refresh Telemetry"
+            aria-label="Refresh Daily Brief"
           >
             <ArrowsClockwise size={16} className={`text-[rgba(255,255,255,0.45)] ${loading ? 'animate-spin' : ''}`} />
           </Button>
