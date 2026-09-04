@@ -1,0 +1,3 @@
+## 2024-05-24 - Dynamic Aria Labels on Icon Buttons with Badges
+**Learning:** Adding static `aria-label` to buttons with unread notification badges overrides their children text for screen readers, meaning the unread count inside the button is not announced. To ensure screen reader users are aware of the notification count, a dynamic `aria-label` string including the unread count is required, and internal decorative icons/badges should be hidden with `aria-hidden="true"`.
+**Action:** When adding ARIA labels to icon buttons containing notification counts or dynamic state text, always evaluate whether the `aria-label` needs to be dynamic to reflect the current state (e.g., "Notifications, 3 unread" instead of just "Notifications"), and hide the decorative internals.
