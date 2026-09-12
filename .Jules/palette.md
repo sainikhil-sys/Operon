@@ -1,0 +1,3 @@
+## 2025-09-12 - Dynamic ARIA Label for Unread Notification Buttons
+**Learning:** When adding ARIA labels to buttons with dynamic visual indicators (like unread notification badges), the `aria-label` needs to be dynamic (e.g., 'Notifications, 3 unread') to reflect the current state. Internal decorative elements need `aria-hidden="true"` so the dynamic count is correctly announced by screen readers without being announced twice or redundantly.
+**Action:** When evaluating buttons with dynamic states or badges, use a dynamic string for the `aria-label` and apply `aria-hidden="true"` to the child icons or spans that visually convey that state.
