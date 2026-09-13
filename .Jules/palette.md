@@ -1,0 +1,1 @@
+## 2026-09-13 - Adding ARIA Labels to Layout Buttons\n**Learning:** When using Playwright for Python, you cannot use lambda functions for locator arguments like `name` in `page.get_by_role()`. Instead, you must use `re.compile()` for pattern matching.\n**Action:** Always use `re.compile()` instead of lambdas when doing regex/starts-with matching in python Playwright locators.
