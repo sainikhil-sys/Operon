@@ -141,8 +141,9 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
             size="icon"
             className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
             onClick={onToggleCollapse}
+            aria-label="Collapse sidebar"
           >
-            <CaretLeft size={16} />
+            <CaretLeft size={16} aria-hidden="true" />
           </Button>
         )}
       </div>
