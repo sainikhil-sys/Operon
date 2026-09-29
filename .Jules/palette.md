@@ -1,0 +1,3 @@
+## 2026-09-29 - Dynamic ARIA Labels for State-Dependent Icon Buttons
+**Learning:** When adding ARIA labels to buttons containing dynamic visual indicators (like unread notification badges), the `aria-label` needs to handle both the base state and the dynamic state (e.g., 'Notifications, X unread'). Internal elements like the icon and the badge must explicitly use `aria-hidden="true"` to prevent screen readers from reading the information redundantly or reading raw numbers out of context.
+**Action:** Always verify if an icon-only button contains stateful badges or indicators before applying a static ARIA label. Use a dynamic label and hide inner elements from screen readers.
