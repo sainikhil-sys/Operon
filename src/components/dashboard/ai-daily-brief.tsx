@@ -87,12 +87,13 @@ export function AIDailyBrief({ userName }: { userName: string }) {
           <Button
             variant="outline"
             size="icon"
+            aria-label="Refresh telemetry"
             onClick={fetchBrief}
             disabled={loading}
             className="h-9 w-9 border-[rgba(255,255,255,0.06)] hover:bg-[#111111] text-[#FFFFFF]"
             title="Refresh Telemetry"
           >
-            <ArrowsClockwise size={16} className={`text-[rgba(255,255,255,0.45)] ${loading ? 'animate-spin' : ''}`} />
+            <ArrowsClockwise size={16} aria-hidden="true" className={`text-[rgba(255,255,255,0.45)] ${loading ? 'animate-spin' : ''}`} />
           </Button>
         </div>
       </div>
