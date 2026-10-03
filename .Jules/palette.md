@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing ARIA Labels on Icon-only Buttons
+**Learning:** Found several icon-only buttons in the application (`src/components/layout/topbar.tsx`, `src/components/layout/sidebar.tsx`, `src/components/dashboard/ai-daily-brief.tsx`, `src/components/leads/lead-table.tsx`) that lack descriptive `aria-label`s. This is a common accessibility issue where screen readers announce "button" without conveying its purpose.
+**Action:** Always add descriptive `aria-label` attributes to `Button` components when they only contain an icon, even if they have visual tooltips (tooltips might not be read reliably if they don't have aria descriptors linking them or if the aria-label is omitted).
