@@ -209,6 +209,7 @@ export default function CustomersPage() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    aria-label="Edit customer"
                     className="h-8 w-8 text-muted-foreground hover:text-foreground"
                     onClick={() => handleEdit(selectedCustomer)}
                   >
@@ -217,6 +218,7 @@ export default function CustomersPage() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    aria-label="Delete customer"
                     className="h-8 w-8 text-destructive hover:text-destructive"
                     onClick={() => handleDelete(selectedCustomer.id)}
                   >
@@ -225,6 +227,7 @@ export default function CustomersPage() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    aria-label="Close profile"
                     className="h-8 w-8 text-muted-foreground hover:text-foreground"
                     onClick={() => setSelectedCustomer(null)}
                   >
