@@ -199,6 +199,7 @@ export default function AIAssistantPage() {
             onClick={handleSend}
             disabled={!input.trim() || isTyping}
             size="icon"
+            aria-label="Send message"
             className="h-11 w-11 shrink-0 rounded-xl"
           >
             <Send className="h-4 w-4" />
