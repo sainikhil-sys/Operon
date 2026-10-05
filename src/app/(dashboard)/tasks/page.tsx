@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { formatDate, getTaskPriorityColor, getTaskStatusColor } from '@/lib/utils'
 import type { Task } from '@/lib/types'
 import { Plus, Search, Calendar, CheckCircle2, Clock, AlertCircle, Pencil, Trash2, Loader2 } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { toast } from 'sonner'
 import { createClient } from '@/lib/supabase'
 import { useAuth } from '@/components/auth-provider'
@@ -249,13 +250,20 @@ export default function TasksPage() {
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEdit(task)}>
-                      <Pencil className="h-3.5 w-3.5" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => handleDelete(task.id)}>
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </Button>
+                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
+                    <Tooltip>
+                      <TooltipTrigger render={<Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEdit(task)} aria-label="Edit task" />}>
+                        <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
+                      </TooltipTrigger>
+                      <TooltipContent>Edit task</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger render={<Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => handleDelete(task.id)} aria-label="Delete task" />}>
+                        <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
+                      </TooltipTrigger>
+                      <TooltipContent>Delete task</TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
               </motion.div>
