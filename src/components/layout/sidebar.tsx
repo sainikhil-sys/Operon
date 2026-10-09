@@ -141,8 +141,9 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
             size="icon"
             className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
             onClick={onToggleCollapse}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <CaretLeft size={16} />
+            <CaretLeft size={16} aria-hidden="true" />
           </Button>
         )}
       </div>
@@ -156,9 +157,10 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
             collapsed && "justify-center px-2"
           )}
           title="Command Palette (Ctrl+K)"
+          aria-label="Open Command Center"
         >
           <span className="flex items-center gap-2">
-            <Command size={16} className="text-[#46D296] shrink-0" />
+            <Command size={16} className="text-[#46D296] shrink-0" aria-hidden="true" />
             {!collapsed && <span>Command Center</span>}
           </span>
           {!collapsed && (
