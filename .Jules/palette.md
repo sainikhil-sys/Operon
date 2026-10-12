@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing ARIA attributes and focus states on interactive UI elements
+**Learning:** Found that custom interactive toggles in the pricing section missed basic a11y properties like `role="switch"`, `aria-checked` states, `aria-label`, and keyboard focus (`focus-visible`). This pattern is common in visual-heavy components built with Tailwind without using headless UI primitives.
+**Action:** When building or fixing custom interactive elements like toggles, always ensure they are fully operable and perceivable via keyboard (`focus-visible`) and screen readers (roles, aria-states, aria-labels).

@@ -76,8 +76,12 @@ export function PricingSection() {
           <div className="mt-8 flex items-center justify-center gap-3">
             <span className={`text-sm font-body ${!annual ? 'text-[#FFFFFF] font-medium' : 'text-[rgba(255,255,255,0.45)]'}`}>Monthly</span>
             <button
+              type="button"
+              role="switch"
+              aria-checked={annual}
+              aria-label="Toggle annual billing"
               onClick={() => setAnnual(!annual)}
-              className="w-12 h-6 rounded-full bg-[#090909] p-1 relative transition-colors border border-[rgba(255,255,255,0.06)]"
+              className="w-12 h-6 rounded-full bg-[#090909] p-1 relative transition-colors border border-[rgba(255,255,255,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#46D296] focus-visible:ring-offset-2 focus-visible:ring-offset-[#11161B]"
             >
               <div className={`w-4 h-4 rounded-full bg-[#46D296] transition-transform ${annual ? 'translate-x-6' : 'translate-x-0'}`} />
             </button>
