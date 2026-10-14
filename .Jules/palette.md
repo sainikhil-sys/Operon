@@ -1,0 +1,3 @@
+## 2024-10-14 - Native buttons lacking default focus styles
+**Learning:** In layout components (e.g., topbar, sidebar, user menu), native HTML `<button>` elements were used instead of the custom `<Button>` component for things like command palette triggers and profile dropdowns. As a result, they completely lacked keyboard focus styles (`focus-visible`), making keyboard navigation inaccessible or invisible for those specific elements.
+**Action:** When working with or auditing layout-level navigation, ensure that any native `<button>` elements have explicit `focus-visible:ring` utilities applied, or consider replacing them with the primary `<Button>` component if feasible without breaking layout constraints.
