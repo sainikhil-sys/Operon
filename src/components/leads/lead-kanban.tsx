@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { formatINR, getLeadStatusColor } from '@/lib/utils'
@@ -20,12 +21,29 @@ interface LeadKanbanProps {
 }
 
 export function LeadKanban({ leads, onEdit }: LeadKanbanProps) {
+  const groupedLeads = useMemo(() => {
+    const grouped = {} as Record<string, { leads: Lead[]; totalValue: number }>
+    for (let i = 0; i < statusColumns.length; i++) {
+      grouped[statusColumns[i].key] = { leads: [], totalValue: 0 }
+    }
+
+    for (let i = 0; i < leads.length; i++) {
+      const lead = leads[i]
+      if (grouped[lead.status]) {
+        grouped[lead.status].leads.push(lead)
+        grouped[lead.status].totalValue += lead.value || 0
+      }
+    }
+    return grouped
+  }, [leads])
+
   return (
     <div className="flex gap-4 overflow-x-auto pb-4">
       {statusColumns.map((col) => {
-        const colLeads = leads.filter((l) => l.status === col.key)
+        const colData = groupedLeads[col.key] || { leads: [], totalValue: 0 }
+        const colLeads = colData.leads
         const statusColor = getLeadStatusColor(col.key)
-        const totalValue = colLeads.reduce((sum, l) => sum + l.value, 0)
+        const totalValue = colData.totalValue
 
         return (
           <div key={col.key} className="min-w-[260px] flex-1">
