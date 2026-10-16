@@ -4,6 +4,7 @@ import { List, MagnifyingGlass, Command } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { NotificationMenu } from './notification-menu'
 import { UserMenu } from './user-menu'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 interface TopbarProps {
   onMenuClick: () => void
@@ -14,14 +15,22 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-[rgba(255,255,255,0.06)] bg-[#000000]/90 backdrop-blur-md px-4 lg:px-6">
       {/* Mobile menu button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"
-        onClick={onMenuClick}
-      >
-        <List size={20} />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"
+              onClick={onMenuClick}
+              aria-label="Open mobile menu"
+            >
+              <List size={20} />
+            </Button>
+          }
+        />
+        <TooltipContent side="bottom">Open mobile menu</TooltipContent>
+      </Tooltip>
 
       {/* Command palette search trigger */}
       <div className="flex-1 max-w-md">
