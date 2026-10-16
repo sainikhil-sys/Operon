@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import { formatINR, formatDate, getInitials } from '@/lib/utils'
 import type { Customer } from '@/lib/types'
 import { Search, Mail, Phone, Building2, IndianRupee, Calendar, X, Plus, Pencil, Trash2 } from 'lucide-react'
@@ -206,30 +207,56 @@ export default function CustomersPage() {
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">Customer Profile</h3>
                 <div className="flex items-center gap-1">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                    onClick={() => handleEdit(selectedCustomer)}
-                  >
-                    <Pencil className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-destructive hover:text-destructive"
-                    onClick={() => handleDelete(selectedCustomer.id)}
-                  >
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                    onClick={() => setSelectedCustomer(null)}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                          onClick={() => handleEdit(selectedCustomer)}
+                          aria-label="Edit customer"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </Button>
+                      }
+                    />
+                    <TooltipContent>Edit customer</TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-destructive hover:text-destructive"
+                          onClick={() => handleDelete(selectedCustomer.id)}
+                          aria-label="Delete customer"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      }
+                    />
+                    <TooltipContent>Delete customer</TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                          onClick={() => setSelectedCustomer(null)}
+                          aria-label="Close details"
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      }
+                    />
+                    <TooltipContent>Close details</TooltipContent>
+                  </Tooltip>
                 </div>
               </div>
 
