@@ -139,10 +139,11 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Toggle sidebar"
             className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
             onClick={onToggleCollapse}
           >
-            <CaretLeft size={16} />
+            <CaretLeft size={16} aria-hidden="true" />
           </Button>
         )}
       </div>
@@ -151,14 +152,15 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
       <div className="px-3 pt-3">
         <button
           onClick={onOpenCommand}
+          aria-label="Open command palette"
           className={cn(
-            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#000000] hover:bg-[#090909] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 font-body",
+            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#000000] hover:bg-[#090909] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 font-body focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             collapsed && "justify-center px-2"
           )}
           title="Command Palette (Ctrl+K)"
         >
           <span className="flex items-center gap-2">
-            <Command size={16} className="text-[#46D296] shrink-0" />
+            <Command size={16} className="text-[#46D296] shrink-0" aria-hidden="true" />
             {!collapsed && <span>Command Center</span>}
           </span>
           {!collapsed && (
