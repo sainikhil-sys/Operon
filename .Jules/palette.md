@@ -1,0 +1,3 @@
+## 2024-10-20 - Hidden Action Buttons Keyboard Inaccessibility
+**Learning:** Action buttons (like edit, delete, or more options) that use `opacity-0 group-hover:opacity-100` are invisible and inaccessible to keyboard users because they cannot hover. While tab navigation might focus them, they remain visually hidden unless `focus-within:opacity-100` or `focus-visible:opacity-100` is used.
+**Action:** When using `group-hover:opacity-100` on a container or element for action buttons, always ensure to include `focus-within:opacity-100` (on the container) or `focus-visible:opacity-100` (on the element itself) and `aria-label` attributes to ensure keyboard and screen reader accessibility.
