@@ -17,17 +17,18 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Toggle menu"
         className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"
         onClick={onMenuClick}
       >
-        <List size={20} />
+        <List size={20} aria-hidden="true" />
       </Button>
 
       {/* Command palette search trigger */}
       <div className="flex-1 max-w-md">
         <button
           onClick={onOpenCommand}
-          className="w-full flex items-center justify-between gap-3 h-9 px-3 rounded-xl bg-[#090909] hover:bg-[#111111] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 text-left font-body"
+          className="w-full flex items-center justify-between gap-3 h-9 px-3 rounded-xl bg-[#090909] hover:bg-[#111111] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 text-left font-body focus-visible:ring-2 focus-visible:outline-none"
         >
           <span className="flex items-center gap-2 truncate">
             <MagnifyingGlass size={16} className="text-[rgba(255,255,255,0.45)] shrink-0" />
