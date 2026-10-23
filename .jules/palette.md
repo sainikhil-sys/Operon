@@ -1,0 +1,3 @@
+## 2025-05-15 - Native `<button>` elements in layout need explicit focus states
+**Learning:** In layout components (e.g., topbar, sidebar, user menu), native HTML `<button>` elements are often used instead of the custom `<Button>` component for specific styling needs. These lack default focus states, making them inaccessible to keyboard navigation out of the box. Additionally, icon-only buttons need explicit `aria-label` and `aria-hidden` attributes for screen readers.
+**Action:** When working on layout components, always ensure any native `<button>` elements have explicit `focus-visible` utilities (e.g., `focus-visible:ring-2 focus-visible:ring-[#46D296]`) applied, and add `aria-label` and `aria-hidden` to icon-only controls.
