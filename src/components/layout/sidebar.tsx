@@ -152,7 +152,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
         <button
           onClick={onOpenCommand}
           className={cn(
-            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#000000] hover:bg-[#090909] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 font-body",
+            "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#000000] hover:bg-[#090909] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 font-body focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#46D296]",
             collapsed && "justify-center px-2"
           )}
           title="Command Palette (Ctrl+K)"
