@@ -76,10 +76,11 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                 autoFocus
               />
               <button
+                aria-label="Close command palette"
                 onClick={() => onOpenChange(false)}
-                className="p-1 text-[#B7B28B] hover:text-[#FFFFFF] transition-colors"
+                className="p-1 text-[#B7B28B] hover:text-[#FFFFFF] transition-colors rounded focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#46D296]"
               >
-                <X size={18} />
+                <X size={18} aria-hidden="true" />
               </button>
             </div>
 
@@ -96,7 +97,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     <button
                       key={cmd.href}
                       onClick={() => handleSelect(cmd.href)}
-                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-[#436B87]/30 text-left transition-colors group font-body text-xs"
+                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-[#436B87]/30 text-left transition-colors group font-body text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#46D296]"
                     >
                       <div className="flex items-center gap-3">
                         <Icon size={18} className="text-[#FFC482] group-hover:scale-110 transition-transform" />
