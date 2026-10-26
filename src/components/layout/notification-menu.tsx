@@ -59,7 +59,7 @@ export function NotificationMenu() {
           {unreadCount > 0 && (
             <button
               onClick={markAllRead}
-              className="text-xs text-muted-foreground hover:text-foreground font-normal flex items-center gap-1"
+              className="text-xs text-muted-foreground hover:text-foreground font-normal flex items-center gap-1 outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
             >
               <Check className="h-3 w-3" />
               Mark all read
