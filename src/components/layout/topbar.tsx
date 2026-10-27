@@ -17,6 +17,7 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Toggle mobile menu"
         className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"
         onClick={onMenuClick}
       >

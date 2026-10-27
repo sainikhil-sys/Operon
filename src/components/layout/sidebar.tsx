@@ -139,6 +139,7 @@ export function Sidebar({ open, onClose, collapsed, onToggleCollapse, onOpenComm
           <Button
             variant="ghost"
             size="icon"
+            aria-label="Toggle sidebar"
             className="h-7 w-7 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111] hidden lg:flex"
             onClick={onToggleCollapse}
           >
