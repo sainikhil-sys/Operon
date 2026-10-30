@@ -1,0 +1,3 @@
+## 2025-02-18 - Missing focus indicators for interactive layout buttons
+**Learning:** Native `<button>` elements in layout components (like the sidebar toggle, command palette triggers, and user menus) lack explicit focus styles out-of-the-box, making keyboard navigation difficult to track. Even if they have hover effects (like `hover:bg-[#111111]`), without something like `focus-visible:ring-2 focus-visible:ring-[#46D296]`, keyboard users are left guessing where their focus is.
+**Action:** Always add explicit `focus-visible:ring` (or similar focus indicators) to custom/native `<button>` elements, particularly those replacing standard `<Button>` components, to ensure keyboard accessibility.
