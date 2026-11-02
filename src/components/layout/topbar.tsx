@@ -15,22 +15,23 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-[rgba(255,255,255,0.06)] bg-[#000000]/90 backdrop-blur-md px-4 lg:px-6">
       {/* Mobile menu button */}
       <Button
+        aria-label="Open mobile menu"
         variant="ghost"
         size="icon"
         className="h-9 w-9 lg:hidden shrink-0 text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] hover:bg-[#111111]"
         onClick={onMenuClick}
       >
-        <List size={20} />
+        <List size={20} aria-hidden="true" />
       </Button>
 
       {/* Command palette search trigger */}
       <div className="flex-1 max-w-md">
         <button
           onClick={onOpenCommand}
-          className="w-full flex items-center justify-between gap-3 h-9 px-3 rounded-xl bg-[#090909] hover:bg-[#111111] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 text-left font-body"
+          className="w-full flex items-center justify-between gap-3 h-9 px-3 rounded-xl bg-[#090909] hover:bg-[#111111] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 text-left font-body outline-none focus-visible:ring-2 focus-visible:ring-[#46D296]"
         >
           <span className="flex items-center gap-2 truncate">
-            <MagnifyingGlass size={16} className="text-[rgba(255,255,255,0.45)] shrink-0" />
+            <MagnifyingGlass size={16} className="text-[rgba(255,255,255,0.45)] shrink-0" aria-hidden="true" />
             <span className="truncate">Search commands, agents, projects, tasks...</span>
           </span>
           <kbd className="hidden sm:inline-flex font-mono text-[10px] bg-[#000000] border border-[rgba(255,255,255,0.06)] px-1.5 py-0.5 rounded text-[#46D296] shrink-0">
