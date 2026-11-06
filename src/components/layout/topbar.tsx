@@ -27,7 +27,9 @@ export function Topbar({ onMenuClick, onOpenCommand }: TopbarProps) {
       <div className="flex-1 max-w-md">
         <button
           onClick={onOpenCommand}
-          className="w-full flex items-center justify-between gap-3 h-9 px-3 rounded-xl bg-[#090909] hover:bg-[#111111] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] transition-all duration-150 text-left font-body"
+          title="Command Palette (Ctrl+K)"
+          aria-label="Search commands, agents, projects, tasks"
+          className="w-full flex items-center justify-between gap-3 h-9 px-3 rounded-xl bg-[#090909] hover:bg-[#111111] border border-[rgba(255,255,255,0.06)] text-xs text-[rgba(255,255,255,0.45)] hover:text-[#FFFFFF] focus-visible:ring-[#46D296] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black transition-all duration-150 text-left font-body"
         >
           <span className="flex items-center gap-2 truncate">
             <MagnifyingGlass size={16} className="text-[rgba(255,255,255,0.45)] shrink-0" />
