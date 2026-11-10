@@ -1,0 +1,3 @@
+## 2026-11-10 - Native Layout Buttons Keyboard Accessibility
+**Learning:** Native HTML `<button>` elements in layout components (like the Topbar and Sidebar) lack default focus states, making them inaccessible for keyboard navigation. Additionally, custom component wrappers utilizing native HTML tags might not automatically inherit focus states if not explicitly styled.
+**Action:** When implementing or modifying native HTML `<button>` elements or custom components utilizing native wrappers, ensure explicit `focus-visible:ring` utilities (specifically `#46D296`) and ARIA labels are added to maintain keyboard accessibility and screen reader support.
