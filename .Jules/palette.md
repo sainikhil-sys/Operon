@@ -1,0 +1,3 @@
+## 2024-05-24 - Missing Focus Rings on Native Buttons in Layout Components
+**Learning:** In layout components (e.g., topbar, sidebar, user menu), native HTML `<button>` elements are sometimes used instead of the custom `<Button>` component for specific positioning or structure. These native buttons lack default focus states, making them invisible to keyboard users when navigating via Tab.
+**Action:** Always verify if interactive elements in layout components are native buttons, and if so, explicitly add `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#46D296]` (using the primary accent color #46D296) to ensure keyboard accessibility.
